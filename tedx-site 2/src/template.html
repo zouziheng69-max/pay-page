@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0607">
+<meta name="description" content="TEDxSSES Youth「RIPPLE 涟漪」 · 2026年11月2日 · 购票">
+<title>RIPPLE · TEDxSSES Youth</title>
+<style>
+@font-face{font-family:"Bebas Neue";src:url(data:font/woff2;base64,%%BEBAS%%) format("woff2");font-display:swap}
+@font-face{font-family:"Bodoni Moda";font-weight:500;src:url(data:font/woff2;base64,%%BODONI%%) format("woff2");font-display:swap}
+@font-face{font-family:"Bodoni Moda";font-weight:500;font-style:italic;src:url(data:font/woff2;base64,%%BODONI_I%%) format("woff2");font-display:swap}
+
+/* 海报同款：唱片暗场 + 红色霓虹 + 一道蓝紫光；窄体大字做标题，Bodoni 做英文副文 */
+:root{
+  color-scheme:dark;
+  --night:#0b0607; --night-2:#150b0c; --panel:rgba(255,255,255,.045); --panel-line:rgba(255,255,255,.1);
+  --neon:#ff3b2f; --ember:#c4130c; --haze:#6d5bd0; --paper:#f5efe9; --mute:#b9a9a5; --dim:#7d6e6b;
+  --wx:#07c160; --ali:#1677ff;
+  --display:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;
+  --serif:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--night)}
+body{margin:0;background:var(--night);color:var(--paper);font:15px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;isolation:isolate;padding:calc(22px + env(safe-area-inset-top)) 20px 34px;min-height:640px;
+  background:
+    radial-gradient(60% 50% at 85% 60%, rgba(255,59,47,.55), transparent 70%),
+    radial-gradient(45% 40% at 70% 95%, rgba(196,19,12,.6), transparent 70%),
+    linear-gradient(115deg, transparent 52%, rgba(109,91,208,.35) 62%, transparent 72%),
+    linear-gradient(180deg,#0b0607 0%,#1a0909 45%,#2a0c0b 100%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.18;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.vinyl{position:absolute;z-index:-1;width:min(118vw,620px);aspect-ratio:1;left:max(-46vw,-250px);top:120px;border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%, #8e1410 0 6%, #1a0606 6.4% 15%, transparent 15.4%),
+    repeating-radial-gradient(circle at 50% 50%, #0d0909 0 2px, #181112 2px 3px),
+    #0d0909;
+  box-shadow:0 0 0 2px rgba(255,59,47,.9),0 0 18px 4px rgba(255,59,47,.75),0 0 70px 18px rgba(255,59,47,.35),inset 0 0 40px rgba(0,0,0,.9)}
+.vinyl::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 210deg, transparent 0 20%, rgba(255,120,100,.28) 26%, transparent 32% 70%, rgba(255,255,255,.08) 76%, transparent 82%)}
+.vinyl::after{content:"";position:absolute;inset:-5%;border-radius:50%;border:1px solid rgba(255,80,60,.35);box-shadow:0 0 30px rgba(255,59,47,.25)}
+@media (prefers-reduced-motion:no-preference){.vinyl::before{animation:spin 9s linear infinite}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.arm{position:absolute;z-index:-1;left:calc(max(-46vw,-250px) + min(118vw,620px)*.78);top:150px;width:min(30vw,150px);height:min(66vw,340px);pointer-events:none}
+.arm .pivot{position:absolute;right:0;top:0;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,#f2f2f2 0 38%,#9a9a9a 40% 55%,rgba(200,200,200,.35) 57%);box-shadow:0 4px 14px rgba(0,0,0,.6)}
+.arm .rod{position:absolute;right:20px;top:22px;width:6px;height:88%;border-radius:3px;background:linear-gradient(90deg,#7c7c7c,#f4f4f4 45%,#8b8b8b);transform-origin:top center;transform:rotate(22deg);box-shadow:0 0 10px rgba(0,0,0,.6)}
+.arm .head{position:absolute;bottom:-6px;left:-12px;width:22px;height:40px;border-radius:3px;background:linear-gradient(90deg,#bdbdbd,#fafafa 50%,#a8a8a8);transform:rotate(-8deg)}
+
+.arm{opacity:.95}
+@media (max-width:640px){.arm{left:14vw;top:175px;height:46vw;width:24vw}}
+.brand{display:flex;justify-content:flex-end;align-items:baseline;gap:8px;font-weight:800;font-size:clamp(26px,7vw,40px);letter-spacing:-.5px;line-height:1}
+.brand .ted{color:var(--neon);font-family:Arial Black,Helvetica,sans-serif}
+.brand .ted sup{font-size:.45em;vertical-align:.95em;margin-left:1px}
+.brand .sses{font-weight:300;font-family:Helvetica,Arial,sans-serif}
+.brand .youth{font-family:Helvetica,Arial,sans-serif}
+.quote{font-family:var(--serif);font-style:italic;font-weight:500;text-align:right;margin:14px 0 0 auto;max-width:22em;font-size:clamp(15px,4.2vw,20px);line-height:1.45;color:#f3dcd6;text-wrap:balance}
+.title-wrap{position:relative;text-align:right;margin-top:clamp(150px,34vw,190px)}
+.ghost{position:absolute;right:-6px;top:-0.62em;font:italic clamp(78px,24vw,150px)/1 var(--display);color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.18);letter-spacing:2px;transform:skewX(-8deg);user-select:none}
+h1{position:relative;margin:0;font:clamp(110px,33vw,200px)/.86 var(--display);letter-spacing:4px;color:#fff;text-shadow:0 0 26px rgba(255,90,70,.35)}
+.tagline{list-style:none;margin:22px 0 0;padding:0;text-align:right;font:500 clamp(15px,4.3vw,21px)/1.55 var(--serif);letter-spacing:.5px}
+.facts{margin-top:44px;display:grid;gap:2px;font:500 clamp(15px,4.2vw,19px)/1.6 var(--serif);text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.facts .zh{font:13px/1.6 var(--sans);color:var(--mute);margin-top:4px}
+.scroll-cue{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:11px 20px;border-radius:999px;background:var(--neon);color:#fff;text-decoration:none;font-weight:700;letter-spacing:.5px;box-shadow:0 6px 24px rgba(255,59,47,.45)}
+
+/* ---------- 正文 ---------- */
+main{max-width:600px;margin:0 auto;padding:8px 16px calc(40px + env(safe-area-inset-bottom))}
+.sec{margin-top:34px}
+.eyebrow{font:13px/1 var(--display);letter-spacing:3px;color:var(--neon);font-size:16px}
+h2{margin:6px 0 14px;font-size:22px;font-weight:700;text-wrap:balance}
+.lead{color:#e6d9d4;margin:0;font-size:15.5px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info div{background:var(--panel);border:1px solid var(--panel-line);border-radius:14px;padding:12px 14px;min-width:0}
+.info .k{font-size:12px;color:var(--dim);letter-spacing:1px}
+.info .v{font-weight:600;margin-top:2px}
+.info .wide{grid-column:1/-1}
+
+.tk{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--panel-line);border-radius:16px;padding:16px;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s}
+.tk+.tk{margin-top:10px}
+.tk:hover{border-color:rgba(255,255,255,.25)}
+.tk[aria-checked=true]{border-color:var(--neon);background:rgba(255,59,47,.1);box-shadow:0 0 0 1px var(--neon),0 0 22px rgba(255,59,47,.25)}
+.tk .groove{width:46px;height:46px;border-radius:50%;flex:none;background:repeating-radial-gradient(circle,#140c0c 0 2px,#221617 2px 3px);position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.tk .groove::after{content:"";position:absolute;inset:34%;border-radius:50%;background:var(--ember)}
+.tk[aria-checked=true] .groove{box-shadow:0 0 0 1.5px var(--neon),0 0 12px rgba(255,59,47,.6)}
+.tk .nm{font-weight:700;font-size:16.5px}
+.tk .en{font:12px/1.2 var(--display);letter-spacing:2px;color:var(--dim);font-size:14px}
+.tk .body{flex:1;min-width:0}
+.tk .pr{font:30px/1 var(--display);letter-spacing:1px}
+.tk .pr small{font:500 14px var(--sans);margin-right:2px;color:var(--mute)}
+.qty{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:var(--mute)}
+.stepper{display:flex;align-items:center;border:1px solid var(--panel-line);border-radius:12px;overflow:hidden}
+.stepper button{width:42px;height:40px;border:0;background:var(--panel);font-size:20px;cursor:pointer}
+.stepper button:disabled{opacity:.35;cursor:default}
+.stepper output{width:46px;text-align:center;font-weight:700}
+
+.field{display:block}
+.field+.field{margin-top:10px}
+.field span{display:block;font-size:13px;color:var(--mute);margin-bottom:5px}
+.field input{width:100%;height:48px;border-radius:12px;border:1px solid var(--panel-line);background:rgba(255,255,255,.06);padding:0 14px;outline:none}
+.field input::placeholder{color:var(--dim)}
+.field input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(255,59,47,.2)}
+.err{color:#ff8a80;font-size:13px;min-height:20px;margin-top:6px}
+
+.sum{display:flex;justify-content:space-between;align-items:flex-end;padding:16px 0;border-top:1px solid var(--panel-line);border-bottom:1px solid var(--panel-line)}
+.sum .l{color:var(--mute);font-size:14px}
+.sum .a{font:44px/1 var(--display);letter-spacing:1px;color:#fff}
+.sum .a small{font:600 18px var(--sans);margin-right:3px;color:var(--neon)}
+.pays{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.pay{height:58px;border-radius:16px;border:0;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;color:#fff;transition:transform .1s,filter .2s}
+.pay:active{transform:scale(.98)}
+.pay.wx{background:var(--wx)} .pay.ali{background:var(--ali)}
+.pay[aria-disabled=true]{filter:grayscale(.85) brightness(.6)}
+.pay .ic{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:14px}
+.note{color:var(--dim);font-size:12.5px;margin-top:12px;line-height:1.6}
+
+footer{max-width:600px;margin:0 auto;padding:24px 16px calc(28px + env(safe-area-inset-bottom));color:var(--dim);font-size:12px;border-top:1px solid var(--panel-line);text-align:center}
+footer .lic{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--mute)}
+
+/* ---------- 付款面板 ---------- */
+.mask{position:fixed;inset:0;z-index:50;background:rgba(5,2,3,.78);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
+.mask.show{display:flex}
+@media (min-width:640px){.mask{align-items:center;padding:20px}}
+.sheet{width:100%;max-width:440px;max-height:94vh;overflow:auto;background:linear-gradient(180deg,#1c0e0f,#120809);border:1px solid var(--panel-line);border-radius:24px 24px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));position:relative;text-align:center}
+@media (min-width:640px){.sheet{border-radius:24px}}
+.close{position:absolute;right:12px;top:10px;width:36px;height:36px;border-radius:50%;border:0;background:var(--panel);font-size:20px;cursor:pointer;color:var(--mute)}
+.s-tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:15px;padding:4px 12px;border-radius:999px}
+.s-amt{font:56px/1 var(--display);letter-spacing:1px;margin:12px 0 2px}
+.s-amt small{font:600 20px var(--sans);margin-right:3px}
+.s-sub{color:var(--mute);font-size:13.5px}
+.qrbox{width:min(70vw,250px);margin:16px auto 6px;padding:12px;border-radius:18px;background:#fff;box-shadow:0 0 0 3px var(--qrc),0 0 30px color-mix(in srgb,var(--qrc) 45%,transparent)}
+.qrbox img{display:block;width:100%;height:auto;border-radius:8px}
+.qr-missing{aspect-ratio:1;display:grid;place-items:center;color:#7a6a66;font-size:13px;background:#f3eeeb;border-radius:8px;padding:12px}
+.steps{text-align:left;list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px;counter-reset:s}
+.steps li{display:flex;gap:10px;font-size:14px;color:#e8dcd8;counter-increment:s}
+.steps li::before{content:counter(s);flex:none;width:22px;height:22px;border-radius:50%;background:var(--panel);border:1px solid var(--panel-line);font:13px/21px var(--display);font-size:15px;text-align:center;color:var(--neon)}
+.memo{display:flex;align-items:center;gap:8px;margin-top:6px;background:rgba(255,255,255,.07);border:1px dashed rgba(255,255,255,.25);border-radius:10px;padding:8px 10px}
+.memo code{flex:1;min-width:0;font:600 14px var(--sans);color:#fff;word-break:break-all;user-select:all}
+.copy{flex:none;border:0;border-radius:8px;background:var(--neon);color:#fff;padding:5px 10px;font-size:12.5px;font-weight:700;cursor:pointer}
+.done{width:100%;height:52px;margin-top:18px;border:0;border-radius:14px;background:var(--neon);color:#fff;font-weight:700;font-size:16px;cursor:pointer}
+.ghost-btn{background:none;border:0;color:var(--mute);margin-top:8px;padding:8px;cursor:pointer;font-size:14px}
+.ok{width:64px;height:64px;margin:6px auto 10px;border-radius:50%;display:grid;place-items:center;background:var(--neon);box-shadow:0 0 28px rgba(255,59,47,.6);font-size:30px}
+.receipt{text-align:left;background:var(--panel);border:1px solid var(--panel-line);border-radius:14px;padding:12px 14px;margin-top:14px;font-size:14px}
+.receipt div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.receipt span:first-child{color:var(--dim)}
+.toast{position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);background:rgba(20,10,11,.95);border:1px solid var(--panel-line);color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:70;text-align:center;max-width:80vw}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="vinyl" aria-hidden="true"></div>
+  <div class="arm" aria-hidden="true"><span class="pivot"></span><span class="rod"><span class="head"></span></span></div>
+
+  <div class="brand"><span class="ted">TED<sup>x</sup></span><span class="sses">SSES</span><span class="youth">Youth</span></div>
+  <p class="quote">"Every tiny ripple may reshape what lies far away."</p>
+
+  <div class="title-wrap">
+    <span class="ghost" aria-hidden="true">RIPPLE</span>
+    <h1>RIPPLE</h1>
+  </div>
+  <ul class="tagline">
+    <li>REAL STORIES</li>
+    <li>DIVERSE PERSPECTIVES</li>
+    <li>IDEAS WORTH SPREADING</li>
+  </ul>
+
+  <div class="facts">
+    <div id="hTime"></div>
+    <div id="hDate"></div>
+    <div id="hPlace"></div>
+    <div class="zh" id="hZh"></div>
+    <div><a class="scroll-cue" href="#tickets">Get Tickets · 立即购票 ↓</a></div>
+  </div>
+</header>
+
+<main>
+  <section class="sec">
+    <div class="eyebrow">THEME · 涟漪</div>
+    <h2>一个微小的想法，也能抵达很远</h2>
+    <p class="lead">当一颗石子坠入湖面，便漾开层层涟漪。一个微小的想法、一次勇敢的行动，亦可向外扩散，产生绵长深远的影响。这个下午，我们邀请讲者分享真实的故事与多元的视角。</p>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">EVENT INFO</div>
+    <h2>活动信息</h2>
+    <div class="info">
+      <div><div class="k">日期</div><div class="v" id="iDate"></div></div>
+      <div><div class="k">时间</div><div class="v" id="iTime"></div></div>
+      <div class="wide"><div class="k">地点</div><div class="v" id="iPlace"></div></div>
+      <div class="wide" id="iContactBox" hidden><div class="k">主办方联系方式</div><div class="v" id="iContact"></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="tickets">
+    <div class="eyebrow">TICKETS</div>
+    <h2>选择票种</h2>
+    <div id="tkList" role="radiogroup" aria-label="票种"></div>
+    <div class="qty">
+      <span>购买数量</span>
+      <div class="stepper">
+        <button type="button" id="minus" aria-label="减少">−</button>
+        <output id="qty">1</output>
+        <button type="button" id="plus" aria-label="增加">+</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="eyebrow">ATTENDEE</div>
+    <h2>购票人信息</h2>
+    <label class="field"><span>姓名</span><input id="name" maxlength="20" placeholder="入场核验使用，请填写真实姓名" autocomplete="name"></label>
+    <label class="field"><span>手机号</span><input id="phone" maxlength="11" inputmode="numeric" placeholder="11 位手机号" autocomplete="tel"></label>
+    <div class="err" id="err"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sum">
+      <div><div class="l" id="sumL">请选择票种</div></div>
+      <div class="a"><small>¥</small><span id="sumA">0</span></div>
+    </div>
+    <div class="pays">
+      <button class="pay wx" data-m="wechat" aria-disabled="true"><span class="ic">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M9 4C5 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.3 2.5.3h.5a5 5 0 0 1-.2-1.4C9.3 11 12.4 8.6 16 8.6h.4C15.7 6 12.6 4 9 4zM16 9.8c-3.3 0-6 2.2-6 4.9s2.7 4.9 6 4.9c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.9 0-2.7-2.7-4.9-6-4.9z"/></svg></span>微信支付</button>
+      <button class="pay ali" data-m="alipay" aria-disabled="true"><span class="ic">支</span>支付宝</button>
+    </div>
+    <p class="note">付款后请保留付款截图。主办方会按付款备注核对名单，入场时报姓名即可。如需退票或有疑问，请联系主办方。</p>
+  </section>
+</main>
+
+<footer>
+  <div class="lic">This independent TEDx event is operated under license from TED.</div>
+  <div style="margin-top:6px" id="foot"></div>
+</footer>
+
+<div class="mask" id="mask" role="dialog" aria-modal="true" aria-labelledby="sTitle"><div class="sheet" id="sheet"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ================== 配置区：只需要改这里 ================== */
+const CONFIG = {
+  dateEn: 'Nov. 2, 2026',
+  dateZh: '2026年11月2日（周一）',
+  time: '16:00–18:00',
+  placeEn: 'Science and Technology Building, 6F',
+  placeZh: '上海市民办尚德实验学校 · 科技楼 6 层',
+  contact: '',              // 主办方联系方式（微信号/电话），留空不显示
+  maxPerOrder: 5,
+  tickets: [                // ⚠️ 价格为占位，请改成实际票价
+    { id: 'adult',   name: '成人票', en: 'GENERAL',  price: 88 },
+    { id: 'student', name: '学生票', en: 'STUDENT',  price: 38 },
+    { id: 'teacher', name: '教师票', en: 'TEACHER',  price: 58 },
+  ],
+  // 收款码图片：把图片放在同一个文件夹里，文件名对应即可
+  wechatQr: 'wechat-qr.jpg',
+  alipayQr: 'alipay-qr.jpg',
+};
+/* ======================================================== */
+
+const $ = (id) => document.getElementById(id);
+const UA = navigator.userAgent;
+const inWeChat = /MicroMessenger/i.test(UA);
+const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(UA);
+const S = { id: null, qty: 1 };
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const ticket = () => CONFIG.tickets.find((t) => t.id === S.id);
+const total = () => (ticket() ? Math.round(ticket().price * S.qty * 100) / 100 : 0);
+const phoneOk = () => /^1\d{10}$/.test($('phone').value.trim());
+function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 1800); }
+
+function render() {
+  $('tkList').innerHTML = CONFIG.tickets.map((t) => `
+    <button type="button" class="tk" role="radio" aria-checked="${t.id === S.id}" data-id="${t.id}">
+      <span class="groove" aria-hidden="true"></span>
+      <span class="body"><div class="nm">${esc(t.name)}</div><div class="en">${esc(t.en)}</div></span>
+      <span class="pr"><small>¥</small>${t.price}</span>
+    </button>`).join('');
+  $('qty').textContent = S.qty;
+  $('minus').disabled = S.qty <= 1;
+  $('plus').disabled = S.qty >= CONFIG.maxPerOrder;
+  $('sumL').textContent = ticket() ? `${ticket().name} × ${S.qty}` : '请选择票种';
+  $('sumA').textContent = total();
+  const ready = ticket() && $('name').value.trim() && phoneOk();
+  document.querySelectorAll('.pay').forEach((b) => b.setAttribute('aria-disabled', String(!ready)));
+}
+
+function memo() { return `${$('name').value.trim()} ${$('phone').value.trim().slice(-4)} ${ticket().name}×${S.qty}`; }
+
+function openPay(method) {
+  if (!ticket()) { $('err').textContent = '请先选择票种'; document.getElementById('tickets').scrollIntoView({ behavior: 'smooth' }); return; }
+  if (!$('name').value.trim()) { $('err').textContent = '请填写姓名'; $('name').focus(); return; }
+  if (!phoneOk()) { $('err').textContent = '请填写正确的 11 位手机号'; $('phone').focus(); return; }
+  $('err').textContent = '';
+  const wx = method === 'wechat';
+  const color = wx ? 'var(--wx)' : 'var(--ali)';
+  const app = wx ? '微信' : '支付宝';
+  const src = wx ? CONFIG.wechatQr : CONFIG.alipayQr;
+  const scanTip = wx
+    ? (inWeChat ? '长按下方二维码保存图片，再打开微信「扫一扫」→ 右上角「相册」选择这张图片' : isMobile ? '截图保存二维码，打开微信「扫一扫」→ 右上角「相册」选择截图' : '打开手机微信「扫一扫」，扫描上方二维码')
+    : (inWeChat ? '微信内无法直接打开支付宝：请截图保存二维码，打开支付宝「扫一扫」→「相册」选择截图' : isMobile ? '截图保存二维码，打开支付宝「扫一扫」→ 右上角「相册」选择截图' : '打开手机支付宝「扫一扫」，扫描上方二维码');
+  $('sheet').innerHTML = `
+    <button class="close" id="xBtn" aria-label="关闭">×</button>
+    <span class="s-tag" id="sTitle" style="background:${color}">${app}付款</span>
+    <div class="s-amt"><small>¥</small>${total()}</div>
+    <div class="s-sub">${esc(ticket().name)} × ${S.qty} · TEDxSSES Youth</div>
+    <div class="qrbox" style="--qrc:${color}">
+      <img src="${esc(src)}" alt="${app}收款码" id="qrImg">
+      <div class="qr-missing" id="qrMiss" hidden>收款码图片未找到<br>请把 ${esc(src)} 放到网页同一文件夹</div>
+    </div>
+    <ol class="steps">
+      <li><span>${scanTip}</span></li>
+      <li><span>输入金额 <b style="color:#fff">¥${total()}</b></span></li>
+      <li><span style="flex:1;min-width:0">付款时点「添加备注」，填写：
+        <div class="memo"><code id="memoTxt">${esc(memo())}</code><button class="copy" id="copyBtn">复制</button></div></span></li>
+      <li><span>付款完成后，点击下方按钮并保存凭证截图</span></li>
+    </ol>
+    <button class="done" id="doneBtn">我已完成付款</button>
+    <button class="ghost-btn" id="backBtn">返回修改</button>`;
+  $('qrImg').onerror = () => { $('qrImg').hidden = true; $('qrMiss').hidden = false; };
+  $('xBtn').onclick = $('backBtn').onclick = close;
+  $('copyBtn').onclick = () => {
+    const txt = $('memoTxt').textContent;
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject())
+      .then(() => toast('备注已复制'))
+      .catch(() => { const r = document.createRange(); r.selectNodeContents($('memoTxt')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('请长按复制备注'); });
+  };
+  $('doneBtn').onclick = () => showReceipt(app);
+  $('mask').classList.add('show');
+}
+
+function showReceipt(app) {
+  const now = new Date();
+  $('sheet').innerHTML = `
+    <button class="close" id="xBtn" aria-label="关闭">×</button>
+    <div class="ok">✓</div>
+    <div style="font-weight:700;font-size:18px" id="sTitle">已提交，请截图保存本页</div>
+    <div class="s-sub" style="margin-top:4px">主办方将根据${app}付款备注核对，入场时报姓名即可</div>
+    <div class="receipt">
+      <div><span>活动</span><span>TEDxSSES Youth · RIPPLE</span></div>
+      <div><span>时间</span><span>${esc(CONFIG.dateZh)} ${esc(CONFIG.time)}</span></div>
+      <div><span>地点</span><span style="text-align:right">${esc(CONFIG.placeZh)}</span></div>
+      <div><span>票种</span><span>${esc(ticket().name)} × ${S.qty}</span></div>
+      <div><span>金额</span><span>¥${total()}（${app}）</span></div>
+      <div><span>购票人</span><span>${esc($('name').value.trim())} · ${esc($('phone').value.trim())}</span></div>
+      <div><span>提交时间</span><span>${now.toLocaleString('zh-CN', { hour12: false })}</span></div>
+    </div>
+    ${CONFIG.contact ? `<div class="s-sub" style="margin-top:12px">如有疑问请联系：${esc(CONFIG.contact)}</div>` : ''}
+    <button class="done" id="okBtn">完成</button>`;
+  $('xBtn').onclick = $('okBtn').onclick = close;
+}
+function close() { $('mask').classList.remove('show'); }
+
+// ---------- 初始化 ----------
+$('hTime').textContent = CONFIG.time;
+$('hDate').textContent = CONFIG.dateEn;
+$('hPlace').textContent = CONFIG.placeEn;
+$('hZh').textContent = `${CONFIG.dateZh} · ${CONFIG.placeZh}`;
+$('iDate').textContent = CONFIG.dateZh;
+$('iTime').textContent = CONFIG.time;
+$('iPlace').textContent = CONFIG.placeZh;
+if (CONFIG.contact) { $('iContactBox').hidden = false; $('iContact').textContent = CONFIG.contact; }
+$('foot').textContent = `© ${new Date().getFullYear()} TEDxSSES Youth · ${CONFIG.placeZh}`;
+
+$('tkList').onclick = (e) => { const b = e.target.closest('[data-id]'); if (!b) return; S.id = b.dataset.id; $('err').textContent = ''; render(); };
+$('minus').onclick = () => { S.qty = Math.max(1, S.qty - 1); render(); };
+$('plus').onclick = () => { S.qty = Math.min(CONFIG.maxPerOrder, S.qty + 1); render(); };
+['name', 'phone'].forEach((id) => $(id).addEventListener('input', () => { $('err').textContent = ''; render(); }));
+document.querySelectorAll('.pay').forEach((b) => b.onclick = () => openPay(b.dataset.m));
+$('mask').onclick = (e) => { if (e.target === $('mask')) close(); };
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+render();
+</script>
+</body>
+</html>
