@@ -2,6 +2,22 @@
 
 线上地址：https://tedxssesyouth.site
 
+## 界面预览
+
+| 首页 | 校外人士购票 | 本校学生预约 |
+| :---: | :---: | :---: |
+| <img src="screenshots/01-home.png" width="260"> | <img src="screenshots/02-guest.png" width="260"> | <img src="screenshots/03-student.png" width="260"> |
+
+| 付款页（68 元） | 电子票（校外） | 电子票（校内免费预约） |
+| :---: | :---: | :---: |
+| <img src="screenshots/04-pay.png" width="260"> | <img src="screenshots/05-ticket.png" width="260"> | <img src="screenshots/06-free-done.png" width="260"> |
+
+| 管理页 |
+| :---: |
+| <img src="screenshots/07-admin.png" width="260"> |
+
+截图来自预览模式，里面的姓名、手机号、订单号都是示例数据。
+
 ## 目录
 
 | 路径 | 内容 |
@@ -13,6 +29,7 @@
 | `demo.js` | 本地预览模式（双击打开网页时自动启用，不连腾讯云） |
 | `cloudfunction/` | 云函数 `tedx` 的代码和数据库建表语句 |
 | `qr/` | 购票页二维码 |
+| `screenshots/` | README 里的界面截图 |
 | `tedx-site 2/` | 早期版本，已不再使用 |
 
 ## 部署
