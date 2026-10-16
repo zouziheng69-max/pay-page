@@ -29,98 +29,349 @@ button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--neon);outline-offset:2px}
 
 /* ---------- HERO ---------- */
-.hero{position:relative;overflow:hidden;isolation:isolate;padding:calc(22px + env(safe-area-inset-top)) 20px 34px;min-height:640px;
+/* 唱片的位置/尺寸统一放在变量里，唱片、标签、涟漪圈共用 */
+.hero{--vs:min(118vw,620px);--vx:max(-46vw,-250px);--vy:120px;
+  position:relative;overflow:hidden;isolation:isolate;padding:calc(22px + env(safe-area-inset-top)) 20px 34px;min-height:660px;
   background:
-    radial-gradient(60% 50% at 85% 60%, rgba(255,59,47,.55), transparent 70%),
-    radial-gradient(45% 40% at 70% 95%, rgba(196,19,12,.6), transparent 70%),
-    linear-gradient(115deg, transparent 52%, rgba(109,91,208,.35) 62%, transparent 72%),
-    linear-gradient(180deg,#0b0607 0%,#1a0909 45%,#2a0c0b 100%)}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.18;mix-blend-mode:overlay;
+    radial-gradient(55% 45% at 90% 58%, rgba(255,59,47,.72), transparent 70%),
+    radial-gradient(42% 34% at 62% 102%, rgba(225,22,12,.8), transparent 70%),
+    radial-gradient(48% 38% at 104% -4%, rgba(150,70,235,.42), transparent 70%),
+    radial-gradient(30% 26% at -4% 16%, rgba(255,80,50,.22), transparent 70%),
+    linear-gradient(180deg,#090405 0%,#1c0909 42%,#360e0c 100%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.22;mix-blend-mode:overlay;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.vinyl{position:absolute;z-index:-1;width:min(118vw,620px);aspect-ratio:1;left:max(-46vw,-250px);top:120px;border-radius:50%;
-  background:
-    radial-gradient(circle at 50% 50%, #8e1410 0 6%, #1a0606 6.4% 15%, transparent 15.4%),
-    repeating-radial-gradient(circle at 50% 50%, #0d0909 0 2px, #181112 2px 3px),
-    #0d0909;
-  box-shadow:0 0 0 2px rgba(255,59,47,.9),0 0 18px 4px rgba(255,59,47,.75),0 0 70px 18px rgba(255,59,47,.35),inset 0 0 40px rgba(0,0,0,.9)}
-.vinyl::before{content:"";position:absolute;inset:0;border-radius:50%;
-  background:conic-gradient(from 210deg, transparent 0 20%, rgba(255,120,100,.28) 26%, transparent 32% 70%, rgba(255,255,255,.08) 76%, transparent 82%)}
-.vinyl::after{content:"";position:absolute;inset:-5%;border-radius:50%;border:1px solid rgba(255,80,60,.35);box-shadow:0 0 30px rgba(255,59,47,.25)}
-@media (prefers-reduced-motion:no-preference){.vinyl::before{animation:spin 9s linear infinite}}
-@keyframes spin{to{transform:rotate(360deg)}}
-.arm{position:absolute;z-index:-1;left:calc(max(-46vw,-250px) + min(118vw,620px)*.78);top:150px;width:min(30vw,150px);height:min(66vw,340px);pointer-events:none}
-.arm .pivot{position:absolute;right:0;top:0;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,#f2f2f2 0 38%,#9a9a9a 40% 55%,rgba(200,200,200,.35) 57%);box-shadow:0 4px 14px rgba(0,0,0,.6)}
-.arm .rod{position:absolute;right:20px;top:22px;width:6px;height:88%;border-radius:3px;background:linear-gradient(90deg,#7c7c7c,#f4f4f4 45%,#8b8b8b);transform-origin:top center;transform:rotate(22deg);box-shadow:0 0 10px rgba(0,0,0,.6)}
-.arm .head{position:absolute;bottom:-6px;left:-12px;width:22px;height:40px;border-radius:3px;background:linear-gradient(90deg,#bdbdbd,#fafafa 50%,#a8a8a8);transform:rotate(-8deg)}
+.hero > .fx{position:absolute;z-index:-1;pointer-events:none}
 
-.arm{opacity:.95}
+/* 蓝紫光带：两道，一宽一窄，缓慢来回扫 */
+.beam{inset:-30% -50%;mix-blend-mode:screen;
+  background:linear-gradient(112deg,transparent 43%,rgba(110,90,255,.0) 46%,rgba(130,105,255,.5) 51%,rgba(255,110,190,.28) 54%,transparent 59%);
+  filter:blur(8px)}
+.beam.thin{background:linear-gradient(112deg,transparent 52.5%,rgba(190,170,255,.75) 53.2%,transparent 54%);filter:blur(1.5px);opacity:.8}
+
+/* 唱片 */
+.vinyl{width:var(--vs);height:var(--vs);left:var(--vx);top:var(--vy);border-radius:50%;
+  background:repeating-radial-gradient(circle at 50% 50%,#0b0708 0 2px,#1b1314 2px 3px),#0b0708;
+  box-shadow:0 0 0 2px #ff4b3b,0 0 12px 3px rgba(255,59,47,.95),0 0 46px 12px rgba(255,59,47,.55),0 0 130px 46px rgba(255,40,30,.3),inset 0 0 60px rgba(0,0,0,.95)}
+.vinyl::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 200deg,transparent 0 17%,rgba(255,150,130,.38) 23%,transparent 29%,transparent 60%,rgba(150,120,255,.26) 68%,transparent 76%)}
+.vinyl::after{content:"";position:absolute;inset:-5.5%;border-radius:50%;border:2px solid rgba(255,80,60,.8);
+  box-shadow:0 0 24px rgba(255,59,47,.65),inset 0 0 24px rgba(255,59,47,.35)}
+.vlabel{position:absolute;left:34.5%;top:34.5%;width:31%;height:31%;border-radius:50%;
+  background:radial-gradient(circle,#0b0708 0 5.5%,#c41a10 6% 58%,#8a100b 59% 100%);box-shadow:0 0 0 1px rgba(0,0,0,.6),inset 0 0 18px rgba(0,0,0,.45)}
+.vlabel svg{display:block;width:100%;height:100%}
+.vlabel text{fill:rgba(255,236,228,.9);font:600 7.6px/1 Helvetica,Arial,sans-serif;letter-spacing:1.6px}
+
+/* 涟漪圈：从唱片向外扩散 */
+.ripples{width:var(--vs);height:var(--vs);left:var(--vx);top:var(--vy)}
+.ripples i{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,90,70,.8);box-shadow:0 0 16px rgba(255,59,47,.5),inset 0 0 16px rgba(255,59,47,.25);opacity:0}
+
+/* 火星粒子 */
+#sparks{inset:0;width:100%;height:100%}
+.vig{inset:0;background:radial-gradient(130% 95% at 55% 42%,transparent 58%,rgba(0,0,0,.55))}
+
+/* 唱臂 */
+.arm{position:absolute;z-index:-1;left:calc(var(--vx) + var(--vs)*.78);top:150px;width:min(30vw,150px);height:min(66vw,340px);pointer-events:none;transform-origin:calc(100% - 22px) 22px}
+.arm .pivot{position:absolute;right:0;top:0;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle,#f2f2f2 0 38%,#9a9a9a 40% 55%,rgba(200,200,200,.35) 57%);box-shadow:0 4px 14px rgba(0,0,0,.6),0 0 20px rgba(255,255,255,.15)}
+.arm .rod{position:absolute;right:20px;top:22px;width:6px;height:88%;border-radius:3px;background:linear-gradient(90deg,#7c7c7c,#f4f4f4 45%,#8b8b8b);transform-origin:top center;transform:rotate(22deg);box-shadow:0 0 10px rgba(0,0,0,.6)}
+.arm .head{position:absolute;bottom:-6px;left:-12px;width:22px;height:40px;border-radius:3px;background:linear-gradient(90deg,#bdbdbd,#fafafa 50%,#a8a8a8);transform:rotate(-8deg);box-shadow:0 0 14px rgba(255,90,70,.55)}
 @media (max-width:640px){.arm{left:14vw;top:175px;height:46vw;width:24vw}}
+
 .brand{display:flex;justify-content:flex-end;align-items:baseline;gap:8px;font-weight:800;font-size:clamp(26px,7vw,40px);letter-spacing:-.5px;line-height:1}
-.brand .ted{color:var(--neon);font-family:Arial Black,Helvetica,sans-serif}
+.brand .ted{color:var(--neon);font-family:Arial Black,Helvetica,sans-serif;text-shadow:0 0 18px rgba(255,59,47,.65)}
 .brand .ted sup{font-size:.45em;vertical-align:.95em;margin-left:1px}
 .brand .sses{font-weight:300;font-family:Helvetica,Arial,sans-serif}
 .brand .youth{font-family:Helvetica,Arial,sans-serif}
-.quote{font-family:var(--serif);font-style:italic;font-weight:500;text-align:right;margin:14px 0 0 auto;max-width:22em;font-size:clamp(15px,4.2vw,20px);line-height:1.45;color:#f3dcd6;text-wrap:balance}
+.quote{font-family:var(--serif);font-style:italic;font-weight:500;text-align:right;margin:14px 0 0 auto;max-width:22em;font-size:clamp(15px,4.2vw,20px);line-height:1.45;color:#f6ddd6;text-wrap:balance;text-shadow:0 2px 14px rgba(0,0,0,.6)}
 .title-wrap{position:relative;text-align:right;margin-top:clamp(150px,34vw,190px)}
-.ghost{position:absolute;right:-6px;top:-0.62em;font:italic clamp(78px,24vw,150px)/1 var(--display);color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.18);letter-spacing:2px;transform:skewX(-8deg);user-select:none}
-h1{position:relative;margin:0;font:clamp(110px,33vw,200px)/.86 var(--display);letter-spacing:4px;color:#fff;text-shadow:0 0 26px rgba(255,90,70,.35)}
-.tagline{list-style:none;margin:22px 0 0;padding:0;text-align:right;font:500 clamp(15px,4.3vw,21px)/1.55 var(--serif);letter-spacing:.5px}
-.facts{margin-top:44px;display:grid;gap:2px;font:500 clamp(15px,4.2vw,19px)/1.6 var(--serif);text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.ghost{position:absolute;right:-6px;top:-0.62em;font:italic clamp(78px,24vw,150px)/1 var(--display);color:transparent;-webkit-text-stroke:1.5px rgba(255,170,160,.32);letter-spacing:2px;transform:skewX(-8deg);user-select:none;text-shadow:0 0 18px rgba(255,59,47,.35)}
+/* 主标题：红蓝错位 + 霓虹光晕 */
+h1{position:relative;margin:0;font:clamp(110px,33vw,200px)/.86 var(--display);letter-spacing:4px;color:#fff;
+  text-shadow:-2px 0 rgba(255,45,35,.9),2px 0 rgba(80,115,255,.75),0 0 26px rgba(255,90,70,.7),0 0 70px rgba(255,59,47,.45)}
+h1 span{display:inline-block}
+.tagline{list-style:none;margin:22px 0 0;padding:0;text-align:right;font:500 clamp(15px,4.3vw,21px)/1.55 var(--serif);letter-spacing:.5px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+.facts{margin-top:44px;display:grid;gap:2px;font:500 clamp(15px,4.2vw,19px)/1.6 var(--serif);text-shadow:0 2px 12px rgba(0,0,0,.7)}
 .facts .zh{font:13px/1.6 var(--sans);color:var(--mute);margin-top:4px}
-.scroll-cue{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:11px 20px;border-radius:999px;background:var(--neon);color:#fff;text-decoration:none;font-weight:700;letter-spacing:.5px;box-shadow:0 6px 24px rgba(255,59,47,.45)}
+.scroll-cue{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:11px 20px;border-radius:999px;background:var(--neon);color:#fff;text-decoration:none;font-weight:700;letter-spacing:.5px;box-shadow:0 0 0 1px rgba(255,160,150,.5),0 6px 26px rgba(255,59,47,.6)}
 
-/* ---------- 正文 ---------- */
-main{max-width:600px;margin:0 auto;padding:8px 16px calc(40px + env(safe-area-inset-bottom))}
-.sec{margin-top:34px}
-.eyebrow{font:13px/1 var(--display);letter-spacing:3px;color:var(--neon);font-size:16px}
-h2{margin:6px 0 14px;font-size:22px;font-weight:700;text-wrap:balance}
-.lead{color:#e6d9d4;margin:0;font-size:15.5px}
+/* ---------- 动效（系统开了「减少动态效果」就全部不动） ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .beam{animation:beam 9s ease-in-out infinite alternate}
+  .beam.thin{animation-duration:6s;animation-direction:alternate-reverse}
+  .vlabel{animation:spin 12s linear infinite}
+  .vinyl::after{animation:breathe 3.2s ease-in-out infinite}
+  .ripples i{animation:ripple 6.4s cubic-bezier(.15,.55,.35,1) infinite}
+  .ripples i:nth-child(2){animation-delay:1.6s}
+  .ripples i:nth-child(3){animation-delay:3.2s}
+  .ripples i:nth-child(4){animation-delay:4.8s}
+  .vinyl{animation:vinylIn 1.4s cubic-bezier(.2,.8,.2,1) both}
+  .arm{animation:armIn 1.6s .4s cubic-bezier(.2,.8,.2,1) both}
+  h1 span{animation:letterIn .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 75ms + .55s)}
+  .ghost{animation:flicker 5s 1.6s infinite}
+  .quote,.tagline li,.facts>*{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+  .quote{animation-delay:.3s}
+  .tagline li:nth-child(1){animation-delay:1.05s} .tagline li:nth-child(2){animation-delay:1.15s} .tagline li:nth-child(3){animation-delay:1.25s}
+  .facts>*{animation-delay:1.4s}
+  .scroll-cue{animation:glow 2.6s 2s ease-in-out infinite}
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes beam{from{transform:translateX(-7%)}to{transform:translateX(7%)}}
+@keyframes breathe{50%{opacity:.4}}
+@keyframes ripple{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.95);opacity:0}}
+@keyframes vinylIn{from{transform:scale(.82) rotate(-40deg);opacity:0}}
+@keyframes armIn{from{transform:rotate(-32deg);opacity:0}}
+@keyframes letterIn{from{opacity:0;transform:translateY(28%) scaleY(1.35);filter:blur(10px)}}
+@keyframes flicker{0%,100%{opacity:1}3%{opacity:.35}5%{opacity:1}7%{opacity:.5}9%{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes glow{50%{box-shadow:0 0 0 1px rgba(255,190,180,.8),0 6px 40px rgba(255,59,47,.95)}}
+
+/* ---------- 正文：比封面亮一档的暖色底 + 半透明卡片，克制一点 ---------- */
+html{background:#231012}
+body{background:transparent}
+.bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
+  background:
+    radial-gradient(60% 40% at 0% 28%,rgba(255,72,52,.2),transparent 70%),
+    radial-gradient(55% 45% at 100% 62%,rgba(140,90,230,.2),transparent 70%),
+    radial-gradient(70% 40% at 50% 108%,rgba(255,90,60,.16),transparent 70%),
+    linear-gradient(180deg,#2c1214 0%,#241113 50%,#2a1416 100%)}
+/* 背景里很淡的涟漪圈，宽屏两侧不再空 */
+.bgfx::before,.bgfx::after{content:"";position:absolute;border-radius:50%;
+  background:repeating-radial-gradient(circle,transparent 0 36px,rgba(255,130,110,.11) 36px 37.5px);
+  -webkit-mask:radial-gradient(circle,#000 25%,transparent 70%);mask:radial-gradient(circle,#000 25%,transparent 70%)}
+.bgfx::before{width:900px;height:900px;right:-430px;top:8%}
+.bgfx::after{width:760px;height:760px;left:-420px;bottom:-6%}
+
+main{position:relative;max-width:680px;margin:0 auto;padding:14px 16px calc(44px + env(safe-area-inset-bottom))}
+.sec{margin-top:40px}
+.eyebrow{display:flex;align-items:center;gap:10px;font:16px/1 var(--display);letter-spacing:3px;color:#ff6b5d}
+.eyebrow::before{content:"";width:22px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--neon),#ff9d80);box-shadow:0 0 8px rgba(255,59,47,.7)}
+.eyebrow b{font-weight:400;color:rgba(255,205,195,.5)}
+h2{margin:8px 0 16px;font-size:23px;font-weight:700;color:#fff;text-wrap:balance}
+.card{position:relative;overflow:hidden;border-radius:20px;
+  background:linear-gradient(180deg,rgba(255,236,230,.09),rgba(255,236,230,.045));
+  border:1px solid rgba(255,220,210,.15);box-shadow:0 12px 32px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07)}
+
+/* 主题卡 */
+.theme{padding:22px 20px 20px}
+.theme h2{position:relative;margin:0 0 10px}
+.theme-rings{position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;pointer-events:none;
+  background:repeating-radial-gradient(circle,transparent 0 14px,rgba(255,110,90,.22) 14px 15.5px);
+  -webkit-mask:radial-gradient(circle,#000 30%,transparent 72%);mask:radial-gradient(circle,#000 30%,transparent 72%)}
+.qmark{display:block;height:34px;font:italic 64px/1 var(--serif);color:var(--neon);text-shadow:0 0 16px rgba(255,59,47,.5)}
+.lead{position:relative;color:#f0e2dd;margin:0;font-size:15.5px;line-height:1.8}
+.chips{position:relative;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chips span{font:14px/1 var(--display);letter-spacing:1.5px;color:#ffd6cd;padding:7px 10px 6px;border-radius:999px;background:rgba(255,59,47,.12);border:1px solid rgba(255,110,90,.3)}
+
+/* 活动信息 */
 .info{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.info div{background:var(--panel);border:1px solid var(--panel-line);border-radius:14px;padding:12px 14px;min-width:0}
-.info .k{font-size:12px;color:var(--dim);letter-spacing:1px}
-.info .v{font-weight:600;margin-top:2px}
+.info>div{display:flex;align-items:center;gap:12px;padding:14px;min-width:0}
 .info .wide{grid-column:1/-1}
+.ico{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(140deg,#ff5a45,#c4130c);box-shadow:0 6px 16px rgba(255,59,47,.35)}
+.ico svg{width:20px;height:20px}
+.info .k{font:13px/1 var(--display);letter-spacing:1.5px;color:#d9b7af}
+.info .v{font-weight:700;margin-top:5px;color:#fff;overflow-wrap:anywhere;line-height:1.4}
 
-.tk{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--panel);border:1.5px solid var(--panel-line);border-radius:16px;padding:16px;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s}
+/* 购票流程 */
+.flow{list-style:none;margin:0 0 14px;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.flow li{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12.5px;color:#e8d3cd;text-align:center;line-height:1.3}
+.flow li i{font:15px/26px var(--display);font-style:normal;width:26px;height:26px;border-radius:50%;text-align:center;color:#fff;background:rgba(255,59,47,.22);border:1px solid rgba(255,110,90,.55)}
+.flow li:not(:last-child)::after{content:"";position:absolute;top:13px;left:calc(50% + 18px);right:calc(-50% + 18px);height:1px;background:linear-gradient(90deg,rgba(255,110,90,.6),rgba(255,110,90,.15))}
+
+/* 票种 */
+.tk{display:flex;align-items:center;gap:14px;width:100%;text-align:left;color:#fff;padding:16px;cursor:pointer;border-radius:18px;
+  background:linear-gradient(180deg,rgba(255,236,230,.09),rgba(255,236,230,.045));border:1.5px solid rgba(255,220,210,.15);
+  transition:border-color .2s,background .2s,box-shadow .2s,transform .1s}
 .tk+.tk{margin-top:10px}
-.tk:hover{border-color:rgba(255,255,255,.25)}
-.tk[aria-checked=true]{border-color:var(--neon);background:rgba(255,59,47,.1);box-shadow:0 0 0 1px var(--neon),0 0 22px rgba(255,59,47,.25)}
-.tk .groove{width:46px;height:46px;border-radius:50%;flex:none;background:repeating-radial-gradient(circle,#140c0c 0 2px,#221617 2px 3px);position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
-.tk .groove::after{content:"";position:absolute;inset:34%;border-radius:50%;background:var(--ember)}
-.tk[aria-checked=true] .groove{box-shadow:0 0 0 1.5px var(--neon),0 0 12px rgba(255,59,47,.6)}
+.tk:hover{border-color:rgba(255,200,190,.35)}
+.tk:active{transform:scale(.99)}
+.tk[aria-checked=true]{border-color:var(--neon);background:linear-gradient(90deg,rgba(255,59,47,.24),rgba(255,59,47,.07));box-shadow:0 0 0 1px var(--neon),0 8px 26px rgba(255,59,47,.28)}
+.tk .tkico{width:52px;height:48px;flex:none;display:grid;place-items:center}
+.tk .tkico svg{width:52px;height:52px;overflow:visible;filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));transition:transform .25s,filter .25s}
+.tk[aria-checked=true] .tkico svg{filter:drop-shadow(0 0 8px rgba(255,59,47,.85));transform:translateY(-2px) rotate(-5deg) scale(1.05)}
 .tk .nm{font-weight:700;font-size:16.5px}
-.tk .en{font:12px/1.2 var(--display);letter-spacing:2px;color:var(--dim);font-size:14px}
+.tk .en{font:14px/1.2 var(--display);letter-spacing:2px;color:#c9a7a0}
 .tk .body{flex:1;min-width:0}
-.tk .pr{font:30px/1 var(--display);letter-spacing:1px}
-.tk .pr small{font:500 14px var(--sans);margin-right:2px;color:var(--mute)}
-.qty{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:var(--mute)}
-.stepper{display:flex;align-items:center;border:1px solid var(--panel-line);border-radius:12px;overflow:hidden}
-.stepper button{width:42px;height:40px;border:0;background:var(--panel);font-size:20px;cursor:pointer}
+.tk .pr{font:32px/1 var(--display);letter-spacing:1px}
+.tk .pr small{font:500 14px var(--sans);margin-right:2px;color:#d9b7af}
+.qty{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:12px 14px;color:#ecd9d3}
+.stepper{display:flex;align-items:center;border:1px solid rgba(255,220,210,.2);border-radius:12px;overflow:hidden;background:rgba(0,0,0,.15)}
+.stepper button{width:42px;height:40px;border:0;background:rgba(255,255,255,.07);font-size:20px;cursor:pointer;color:#fff}
 .stepper button:disabled{opacity:.35;cursor:default}
 .stepper output{width:46px;text-align:center;font-weight:700}
 
-.field{display:block}
-.field+.field{margin-top:10px}
-.field span{display:block;font-size:13px;color:var(--mute);margin-bottom:5px}
-.field input{width:100%;height:48px;border-radius:12px;border:1px solid var(--panel-line);background:rgba(255,255,255,.06);padding:0 14px;outline:none}
-.field input::placeholder{color:var(--dim)}
-.field input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(255,59,47,.2)}
-.err{color:#ff8a80;font-size:13px;min-height:20px;margin-top:6px}
+/* 身份折叠卡 */
+.idc{border-radius:18px;transition:box-shadow .25s}
+.idc+.idc{margin-top:10px}
+.idc .tk{position:relative;z-index:1}
+.idc.open .tk{border-color:var(--neon);background:linear-gradient(90deg,rgba(255,59,47,.24),rgba(255,59,47,.07));box-shadow:0 0 0 1px var(--neon),0 8px 26px rgba(255,59,47,.28);border-radius:18px 18px 0 0}
+.idc.open .tk .tkico svg{filter:drop-shadow(0 0 8px rgba(255,59,47,.85));transform:translateY(-2px) rotate(-5deg) scale(1.05)}
+.tk .pr{white-space:nowrap}
+.tk .pr.free{font:700 17px/1 var(--sans);letter-spacing:2px;color:#ffd9d2;padding:6px 10px;border-radius:999px;background:rgba(255,59,47,.16);border:1px solid rgba(255,110,90,.35)}
+.chev{flex:none;width:10px;height:10px;margin-left:2px;border-right:2px solid #d9b7af;border-bottom:2px solid #d9b7af;transform:rotate(45deg) translateY(-3px);transition:transform .25s}
+.idc.open .chev{transform:rotate(-135deg) translateY(-2px);border-color:#fff}
+.pnl{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease}
+.idc.open .pnl{grid-template-rows:1fr}
+.pnl-in{overflow:hidden;min-height:0}
+.pnl-pad{padding:16px;border:1.5px solid var(--neon);border-top:0;border-radius:0 0 18px 18px;background:linear-gradient(180deg,rgba(255,59,47,.08),rgba(255,236,230,.04))}
+.idc:not(.open) .pnl-pad{visibility:hidden;transition:visibility 0s .32s}
+.pnl .qty{margin-top:12px;padding:10px 2px}
+.pnl .sum{margin-top:4px;padding:12px 2px 0;border-top:1px dashed rgba(255,220,210,.22);border-bottom:0;align-items:center}
+.pnl .sum .a{font-size:40px}
+.go-free{width:100%;height:56px;margin-top:16px;border:0;border-radius:16px;font-weight:700;font-size:16px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ff5a45,#c4130c);box-shadow:0 8px 20px rgba(255,59,47,.3);display:flex;align-items:center;justify-content:center;gap:10px}
+.go-free[aria-disabled=true]{filter:grayscale(.75) brightness(.7)}
+.go-free.wait{pointer-events:none;opacity:.75}
+#idList.bad{border-radius:20px;box-shadow:0 0 0 2px #ff5b4f,0 0 0 6px rgba(255,59,47,.18)}
 
-.sum{display:flex;justify-content:space-between;align-items:flex-end;padding:16px 0;border-top:1px solid var(--panel-line);border-bottom:1px solid var(--panel-line)}
-.sum .l{color:var(--mute);font-size:14px}
-.sum .a{font:44px/1 var(--display);letter-spacing:1px;color:#fff}
-.sum .a small{font:600 18px var(--sans);margin-right:3px;color:var(--neon)}
+/* 学部选择 */
+.dept{border-radius:14px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg.sub{display:grid;grid-template-columns:repeat(3,1fr);margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,220,210,.2)}
+.seg button{flex:1 1 auto;min-width:64px;height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(255,220,210,.22);background:rgba(0,0,0,.18);color:#f0e2dd;font-size:15px;font-weight:600;cursor:pointer;transition:background .15s,border-color .15s}
+.seg button[aria-pressed=true]{background:linear-gradient(135deg,#ff5a45,#c4130c);border-color:var(--neon);color:#fff;box-shadow:0 4px 14px rgba(255,59,47,.35)}
+.dept.bad{box-shadow:0 0 0 2px #ff5b4f,0 0 0 6px rgba(255,59,47,.18);padding:8px;background:rgba(255,59,47,.08)}
+
+/* 嘉宾：话筒 + 涟漪 */
+.sp-mic{position:relative;flex:none;width:72px;height:72px;display:grid;place-items:center;color:#fff}
+.sp-mic svg{position:relative;width:34px;height:34px;filter:drop-shadow(0 0 10px rgba(255,80,60,.7))}
+.sp-mic::before{content:"";position:absolute;inset:12px;border-radius:50%;background:radial-gradient(circle,#ff5a45,#c4130c);box-shadow:0 0 24px rgba(255,59,47,.55)}
+.sp-mic i{position:absolute;inset:12px;border-radius:50%;border:1.5px solid rgba(255,110,90,.7);animation:micRing 2.7s ease-out infinite}
+.sp-mic i:nth-child(2){animation-delay:.9s}.sp-mic i:nth-child(3){animation-delay:1.8s}
+@keyframes micRing{from{transform:scale(1);opacity:.9}to{transform:scale(1.9);opacity:0}}
+
+/* 入场提示时间线 */
+.info .arrive{display:block;padding:14px}
+.ar-h{display:flex;align-items:center;gap:12px}
+.tl{list-style:none;margin:14px 0 0;padding:0 0 0 4px;position:relative}
+.tl::before{content:"";position:absolute;left:68px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,#ff5a45,rgba(255,90,70,.15))}
+.tl li{display:flex;align-items:flex-start;gap:34px;padding:6px 0;position:relative}
+.tl time{flex:none;width:46px;font:19px/1.2 var(--display);letter-spacing:1px;color:#ffb4a9}
+.tl li::before{content:"";position:absolute;left:64px;top:12px;width:10px;height:10px;border-radius:50%;background:#ff3b2f;box-shadow:0 0 0 3px rgba(255,59,47,.25),0 0 10px rgba(255,59,47,.8)}
+.tl b{display:block;color:#fff;font-size:14.5px}
+.tl span{display:block;color:#c9a7a0;font-size:12.5px;margin-top:1px}
+
+/* ---------- 购票区动效 ---------- */
+#tickets{position:relative;isolation:isolate}
+#tickets::before{content:"";position:absolute;z-index:-1;left:50%;top:40px;width:680px;height:680px;margin-left:-340px;border-radius:50%;pointer-events:none;
+  background:repeating-radial-gradient(circle,transparent 0 34px,rgba(255,90,70,.07) 34px 35.5px);
+  -webkit-mask:radial-gradient(circle,#000 20%,transparent 68%);mask:radial-gradient(circle,#000 20%,transparent 68%)}
+.idc .tk{overflow:hidden}
+.idc .tk>*{position:relative;z-index:1}
+.tk .pr.free{position:relative;overflow:hidden}
+.rip{position:absolute;z-index:0;left:0;top:0;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,140,120,.55),rgba(255,59,47,.18) 45%,rgba(255,59,47,0) 70%);transform:scale(0);animation:rip .75s ease-out forwards}
+@keyframes rip{to{transform:scale(36);opacity:0}}
+.pay,.go-free{position:relative;overflow:hidden}
+@media (prefers-reduced-motion:no-preference){
+  #tickets::before{animation:ringBreath 7s ease-in-out infinite}
+  @keyframes ringBreath{0%,100%{transform:scale(.94);opacity:.7}50%{transform:scale(1.04);opacity:1}}
+  .idc{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+  .idc:nth-child(2){transition-delay:.1s}.idc:nth-child(3){transition-delay:.2s}
+  .idc.in{opacity:1;transform:none}
+  .idc .tkico svg{animation:tkFloat 3.4s ease-in-out infinite}
+  .idc:nth-child(2) .tkico svg{animation-delay:-1.1s}.idc:nth-child(3) .tkico svg{animation-delay:-2.2s}
+  @keyframes tkFloat{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -3px;rotate:-5deg}}
+  .idc .tk::after{content:"";position:absolute;z-index:0;inset:0;pointer-events:none;transform:translateX(-130%);
+    background:linear-gradient(105deg,transparent 35%,rgba(255,235,230,.07) 45%,rgba(255,235,230,.14) 50%,rgba(255,235,230,.07) 55%,transparent 65%);
+    animation:sheen 7s ease-in-out infinite}
+  .idc:nth-child(2) .tk::after{animation-delay:1.2s}.idc:nth-child(3) .tk::after{animation-delay:2.4s}
+  @keyframes sheen{0%,72%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+  .idc.open{animation:openGlow 2.8s ease-in-out infinite}
+  @keyframes openGlow{0%,100%{box-shadow:0 0 0 rgba(255,59,47,0)}50%{box-shadow:0 0 34px rgba(255,59,47,.28)}}
+  .idc.open .pnl-pad>*{animation:fieldIn .5s cubic-bezier(.2,.8,.2,1) both}
+  .idc.open .pnl-pad>*:nth-child(2){animation-delay:.05s}.idc.open .pnl-pad>*:nth-child(3){animation-delay:.1s}
+  .idc.open .pnl-pad>*:nth-child(4){animation-delay:.15s}.idc.open .pnl-pad>*:nth-child(5){animation-delay:.2s}
+  .idc.open .pnl-pad>*:nth-child(n+6){animation-delay:.25s}
+  @keyframes fieldIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .tk .pr.free::after{content:"";position:absolute;inset:0;transform:translateX(-120%);background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);animation:sheen 4.5s ease-in-out infinite}
+  .pay[aria-disabled=false]::after,.go-free[aria-disabled=false]::after{content:"";position:absolute;inset:0;transform:translateX(-130%);pointer-events:none;
+    background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);animation:sheen 2.8s ease-in-out infinite}
+  .seg button[aria-pressed=true]{animation:pop .3s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes pop{0%{transform:scale(.92)}100%{transform:scale(1)}}
+  #sumA{display:inline-block}
+  #sumA.bump{animation:pop .3s cubic-bezier(.3,1.6,.5,1)}
+}
+
+/* 嘉宾海报：这一段背景换成海报同款深蓝夜色，海报像浮在上面 */
+.sec.spk{position:relative}
+.sec.spk::before{content:"";position:absolute;z-index:-1;left:50%;width:100vw;margin-left:-50vw;top:-60px;bottom:-30px;pointer-events:none;
+  background:
+    radial-gradient(60% 22% at 85% 18%,rgba(255,70,50,.28),transparent 70%),
+    radial-gradient(55% 20% at 10% 45%,rgba(120,90,255,.22),transparent 70%),
+    radial-gradient(60% 22% at 90% 75%,rgba(255,120,60,.18),transparent 70%),
+    linear-gradient(180deg,transparent 0,#0b0d1a 9%,#090b16 50%,#0b0d1a 91%,transparent 100%)}
+.posters{display:grid;gap:18px}
+.poster{position:relative;margin:0;line-height:0;border-radius:18px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 24px 60px rgba(0,0,0,.6),0 0 46px rgba(255,59,47,.16)}
+.poster img{display:block;width:100%;height:auto}
+
+/* 购票人 */
+.form{padding:16px}
+.field{display:block}
+.field+.field{margin-top:12px}
+.field span{display:block;font-size:13px;color:#e2cbc5;margin-bottom:6px}
+.field input{width:100%;height:50px;border-radius:12px;border:1px solid rgba(255,220,210,.2);background:rgba(0,0,0,.18);padding:0 14px;outline:none;font-size:16px}
+.field input::placeholder{color:#a88d87}
+.field input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(255,59,47,.22)}
+.err{color:#ff9e94;font-size:13px;min-height:20px;margin-top:8px}
+
+/* 订单 + 付款 */
+.order{padding:16px}
+.sum{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:2px 2px 16px;border-bottom:1px dashed rgba(255,220,210,.22)}
+.sum .l{color:#e2cbc5;font-size:14px}
+.sum .a{font:46px/1 var(--display);letter-spacing:1px;color:#fff;text-shadow:0 0 18px rgba(255,90,70,.35)}
+.sum .a small{font:600 18px var(--sans);margin-right:3px;color:#ff6b5d}
 .pays{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-.pay{height:58px;border-radius:16px;border:0;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;color:#fff;transition:transform .1s,filter .2s}
+.pay{height:58px;border-radius:16px;border:0;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;color:#fff;transition:transform .1s,filter .2s;box-shadow:0 8px 20px rgba(0,0,0,.25)}
 .pay:active{transform:scale(.98)}
 .pay.wx{background:var(--wx)} .pay.ali{background:var(--ali)}
-.pay[aria-disabled=true]{filter:grayscale(.85) brightness(.6)}
+.pay[aria-disabled=true]{filter:grayscale(.75) brightness(.7)}
 .pay .ic{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:14px}
-.note{color:var(--dim);font-size:12.5px;margin-top:12px;line-height:1.6}
+.note{color:#bfa49e;font-size:12.5px;margin:14px 2px 0;line-height:1.7}
 
-footer{max-width:600px;margin:0 auto;padding:24px 16px calc(28px + env(safe-area-inset-bottom));color:var(--dim);font-size:12px;border-top:1px solid var(--panel-line);text-align:center}
-footer .lic{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--mute)}
+.pay.wait{pointer-events:none;opacity:.75}
+.field span i{font-style:normal;color:#ff6b5d}
+.field input.bad{border-color:#ff5b4f;background:rgba(255,59,47,.1);box-shadow:0 0 0 3px rgba(255,59,47,.25)}
+#tkList.bad{border-radius:20px;box-shadow:0 0 0 2px #ff5b4f,0 0 0 6px rgba(255,59,47,.18)}
+.shake{animation:shakeX .4s}
+@keyframes shakeX{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.pay-err{color:#ff9e94;font-size:13.5px;font-weight:600;min-height:0;margin-top:10px;text-align:center}
+.pay-err:empty{display:none}
+.lead-en{position:relative;margin:12px 0 0;font:italic 500 15px/1.65 var(--serif);color:#e3c9c2}
+.lead-en b{font-weight:600;color:#fff}
+.speakers{padding:18px 18px 8px}
+.sp-head{display:flex;align-items:center;gap:16px;padding-bottom:14px;border-bottom:1px dashed rgba(255,220,210,.2)}
+.sp-num{font:72px/.8 var(--display);color:#fff;text-shadow:-2px 0 rgba(255,45,35,.85),2px 0 rgba(80,115,255,.7),0 0 20px rgba(255,80,60,.55)}
+.sp-head p{margin:0;color:#f0e2dd;font-size:15px;line-height:1.6}
+.sp-head p span{display:block;font:italic 500 13.5px/1.5 var(--serif);color:#c9a7a0;margin-top:2px}
+.sp-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.sp-list li{position:relative;padding:12px 0 12px 16px;border-bottom:1px solid rgba(255,220,210,.1);min-width:0}
+.sp-list li::before{content:"";position:absolute;left:0;top:19px;width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px rgba(255,59,47,.8)}
+.sp-list b{display:block;font-size:14.5px;color:#fff;line-height:1.45}
+.sp-list span{display:block;font:italic 500 12.5px/1.4 var(--serif);color:#c9a7a0;margin-top:2px}
+@media (max-width:479px){.sp-list{grid-template-columns:1fr}}
+.topics{margin-top:10px;padding:18px}
+.tp-h{font:15px/1 var(--display);letter-spacing:2px;color:#ff6b5d;margin-bottom:6px}
+.topics ol{list-style:none;margin:0;padding:0;counter-reset:tp}
+.topics li{counter-increment:tp;display:grid;grid-template-columns:34px 1fr;column-gap:8px;padding:10px 0;border-bottom:1px solid rgba(255,220,210,.1)}
+.topics li::before{content:"0" counter(tp);grid-row:span 2;font:24px/1 var(--display);color:rgba(255,120,100,.75);padding-top:2px}
+.topics li b{font-size:15px;color:#fff}
+.topics li span{font:italic 500 13px/1.4 var(--serif);color:#c9a7a0}
+.tp-end{margin:14px 0 0;color:#ffd9d2;font-weight:600;text-align:center}
+.tp-end span{display:block;font:italic 500 13.5px/1.5 var(--serif);color:#c9a7a0;font-weight:400;margin-top:2px}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .8s linear infinite}
+.mine{margin-top:12px;padding:14px 16px}
+.mine-h{font:14px/1 var(--display);letter-spacing:2px;color:#ff6b5d;margin-bottom:8px}
+.mine a{display:flex;align-items:center;gap:12px;padding:10px 2px;color:#fff;text-decoration:none;border-top:1px solid rgba(255,220,210,.12)}
+.mine a:first-of-type{border-top:0}
+.mine b{font:20px/1 var(--display);letter-spacing:2px;color:#fff}
+.mine span{flex:1;color:#e2cbc5;font-size:14px}
+.mine i{font-style:normal;color:#ff8b7e;font-size:13px}
+footer{max-width:680px;margin:0 auto;padding:24px 16px calc(28px + env(safe-area-inset-bottom));color:#b0948e;font-size:12px;border-top:1px solid rgba(255,220,210,.14);text-align:center}
+footer .lic{font-family:var(--serif);font-style:italic;font-size:13px;color:#d8c0ba}
+
+/* 手机竖屏：活动信息一行一张，日期不被拆行 */
+@media (max-width:479px){.info{grid-template-columns:1fr}}
+@media (max-width:360px){.flow li{font-size:11.5px}.tk .pr{font-size:28px}}
 
 /* ---------- 付款面板 ---------- */
 .mask{position:fixed;inset:0;z-index:50;background:rgba(5,2,3,.78);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center}
@@ -150,12 +401,38 @@ footer .lic{font-family:var(--serif);font-style:italic;font-size:13px;color:var(
 .receipt span:first-child{color:var(--dim)}
 .toast{position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);background:rgba(20,10,11,.95);border:1px solid var(--panel-line);color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:70;text-align:center;max-width:80vw}
 .toast.show{opacity:1}
+.demo{position:sticky;top:0;z-index:50;background:#ffd400;color:#000;text-align:center;font:700 13px/1.4 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:calc(6px + env(safe-area-inset-top)) 12px 6px}
+/* 时间线：每行自带一段竖线，圆点永远在线正中 */
+.tl{padding:0}
+.tl::before{display:none}
+.tl li{display:grid;grid-template-columns:50px 22px 1fr;gap:0 10px;padding:0;align-items:stretch}
+.tl li::before{display:none}
+.tl time{width:auto;padding:7px 0}
+.tl li>div{padding:7px 0}
+.tl .rail{position:relative;display:block}
+.tl .rail::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#ff5a45,rgba(255,90,70,.3))}
+.tl li:first-child .rail::before{top:16px}
+.tl li:last-child .rail::before{bottom:auto;height:16px}
+.tl .rail::after{content:"";position:absolute;left:5px;top:11px;width:12px;height:12px;border-radius:50%;background:#ff3b2f;box-shadow:0 0 0 4px rgba(255,59,47,.25),0 0 10px rgba(255,59,47,.8)}
+
+/* 嘉宾：圆头话筒 */
+.sp-mic::before{display:none}
+.sp-mic svg{width:60px;height:60px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45)) drop-shadow(0 0 12px rgba(255,59,47,.45))}
+.sp-mic i{inset:4px}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="tkGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6a52"/><stop offset="1" stop-color="#c4130c"/></linearGradient><radialGradient id="micBall" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#fff0e8"/><stop offset=".5" stop-color="#f0a493"/><stop offset="1" stop-color="#b24f43"/></radialGradient><linearGradient id="micBody" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7a2e27"/><stop offset=".45" stop-color="#e8a291"/><stop offset="1" stop-color="#5e1f1a"/></linearGradient></defs></svg>
 
 <header class="hero">
-  <div class="vinyl" aria-hidden="true"></div>
+  <div class="fx beam" aria-hidden="true"></div>
+  <div class="fx ripples" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="fx vinyl" aria-hidden="true">
+    <div class="vlabel"><svg viewBox="0 0 100 100"><defs><path id="lp" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0"/></defs><text><textPath href="#lp">TEDxSSES YOUTH · RIPPLE · 涟漪 · 2026 ·</textPath></text></svg></div>
+  </div>
+  <div class="fx beam thin" aria-hidden="true"></div>
+  <canvas class="fx" id="sparks" aria-hidden="true"></canvas>
+  <div class="fx vig" aria-hidden="true"></div>
   <div class="arm" aria-hidden="true"><span class="pivot"></span><span class="rod"><span class="head"></span></span></div>
 
   <div class="brand"><span class="ted">TED<sup>x</sup></span><span class="sses">SSES</span><span class="youth">Youth</span></div>
@@ -163,7 +440,7 @@ footer .lic{font-family:var(--serif);font-style:italic;font-size:13px;color:var(
 
   <div class="title-wrap">
     <span class="ghost" aria-hidden="true">RIPPLE</span>
-    <h1>RIPPLE</h1>
+    <h1 aria-label="RIPPLE"><span style="--i:0">R</span><span style="--i:1">I</span><span style="--i:2">P</span><span style="--i:3">P</span><span style="--i:4">L</span><span style="--i:5">E</span></h1>
   </div>
   <ul class="tagline">
     <li>REAL STORIES</li>
@@ -180,57 +457,136 @@ footer .lic{font-family:var(--serif);font-style:italic;font-size:13px;color:var(
   </div>
 </header>
 
+<div class="bgfx" aria-hidden="true"></div>
 <main>
   <section class="sec">
-    <div class="eyebrow">THEME · 涟漪</div>
-    <h2>一个微小的想法，也能抵达很远</h2>
-    <p class="lead">当一颗石子坠入湖面，便漾开层层涟漪。一个微小的想法、一次勇敢的行动，亦可向外扩散，产生绵长深远的影响。这个下午，我们邀请讲者分享真实的故事与多元的视角。</p>
+    <div class="eyebrow"><b>01</b>THEME · 涟漪</div>
+    <div class="card theme">
+      <span class="theme-rings" aria-hidden="true"></span>
+      <span class="qmark" aria-hidden="true">“</span>
+      <h2>一念起，万波随</h2>
+      <p class="lead">本届 TEDx SSES Youth 以「Ripple 涟漪」为核心主题。每一个微小的选择、思考与行动，都如同投入湖面的石子，悄然扩散、持续影响自我、他人与世界。</p>
+      <p class="lead-en">This year’s TEDx SSES Youth centers on the theme <b>Ripple</b>. Every small thought, choice, and action is like a pebble falling into water. It starts subtle yet spreads endlessly, bringing lasting influence to individuals, communities, and the world.</p>
+      <div class="chips"><span>REAL STORIES</span><span>DIVERSE PERSPECTIVES</span><span>IDEAS WORTH SPREADING</span></div>
+    </div>
+  </section>
+
+  <section class="sec spk">
+    <div class="eyebrow"><b>02</b>SPEAKERS</div>
+    <h2>来自不同领域的声音</h2>
+    <div class="posters">
+      <figure class="poster"><img src="speakers-guest.jpg" alt="演讲嘉宾" width="1080" height="1880" loading="lazy" decoding="async"></figure>
+      <figure class="poster"><img src="speakers-student.jpg" alt="学生演讲嘉宾" width="1080" height="1880" loading="lazy" decoding="async"></figure>
+    </div>
+    <div class="card topics">
+      <div class="tp-h">FIVE PERSPECTIVES · 五个探讨方向</div>
+      <ol>
+        <li><b>可持续行动与社会责任</b><span>Sustainable action &amp; social responsibility</span></li>
+        <li><b>创新教育的力量</b><span>The power of innovative education</span></li>
+        <li><b>全球视野与跨文化认知</b><span>Global vision &amp; cross-cultural awareness</span></li>
+        <li><b>突破刻板印象的自我成长</b><span>Self-growth beyond stereotypes</span></li>
+        <li><b>青少年的独立思考与探索</b><span>Independent thinking from young people</span></li>
+      </ol>
+      <p class="tp-end">见证微小的想法，如何荡漾出深远的涟漪。<span>Witness how small ideas create far-reaching ripples.</span></p>
+    </div>
   </section>
 
   <section class="sec">
-    <div class="eyebrow">EVENT INFO</div>
+    <div class="eyebrow"><b>03</b>EVENT INFO</div>
     <h2>活动信息</h2>
     <div class="info">
-      <div><div class="k">日期</div><div class="v" id="iDate"></div></div>
-      <div><div class="k">时间</div><div class="v" id="iTime"></div></div>
-      <div class="wide"><div class="k">地点</div><div class="v" id="iPlace"></div></div>
-      <div class="wide" id="iContactBox" hidden><div class="k">主办方联系方式</div><div class="v" id="iContact"></div></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><div><div class="k">DATE · 日期</div><div class="v" id="iDate"></div></div></div>
+      <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><div><div class="k">TIME · 时间</div><div class="v" id="iTime"></div></div></div>
+      <div class="card wide arrive">
+        <div class="ar-h"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11.5l2.2 2.2L15.5 9.5"/><rect x="4" y="3.5" width="16" height="17" rx="3"/></svg></span><div><div class="k">ARRIVAL · 温馨入场提示</div><div class="v">建议 13:40–13:55 抵达签到入座</div></div></div>
+        <ol class="tl">
+          <li class="t1"><time>13:40</time><i class="rail"></i><div><b>开始签到入座</b><span>建议 13:55 前完成</span></div></li>
+          <li class="t2"><time>13:50</time><i class="rail"></i><div><b>暖场开启</b><span>乐团演奏 + 开幕致辞</span></div></li>
+          <li class="t3"><time>14:00</time><i class="rail"></i><div><b>主题演讲正式开始</b><span>RIPPLE · 涟漪</span></div></li>
+        </ol>
+      </div>
+      <div class="card wide"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg></span><div><div class="k">VENUE · 地点</div><div class="v" id="iPlace"></div></div></div>
+      <div class="card wide" id="iContactBox" hidden><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 4.5h3.5l1.7 4.2-2.2 1.4a11 11 0 0 0 5.9 5.9l1.4-2.2 4.2 1.7V19a1.5 1.5 0 0 1-1.6 1.5C10.4 20 4 13.6 3.5 6.1A1.5 1.5 0 0 1 5 4.5z"/></svg></span><div><div class="k">CONTACT · 主办方联系方式</div><div class="v" id="iContact"></div></div></div>
     </div>
   </section>
 
   <section class="sec" id="tickets">
-    <div class="eyebrow">TICKETS</div>
-    <h2>选择票种</h2>
-    <div id="tkList" role="radiogroup" aria-label="票种"></div>
-    <div class="qty">
-      <span>购买数量</span>
-      <div class="stepper">
-        <button type="button" id="minus" aria-label="减少">−</button>
-        <output id="qty">1</output>
-        <button type="button" id="plus" aria-label="增加">+</button>
+    <div class="eyebrow"><b>04</b>TICKETS</div>
+    <h2>选择你的身份</h2>
+    <div id="idList" class="ids">
+      <div class="idc" data-id="guest">
+        <button type="button" class="tk" aria-expanded="false" aria-controls="pnl-guest">
+          <span class="tkico"></span>
+          <span class="body"><div class="nm">校外人士</div><div class="en">GUEST · 购票入场</div></span>
+          <span class="pr" id="prGuest"></span><span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="pnl" id="pnl-guest"><div class="pnl-in"><div class="pnl-pad">
+          <label class="field"><span>姓名 <i>*</i></span><input id="g-name" maxlength="20" placeholder="入场核验使用，请填写真实姓名" autocomplete="name"></label>
+          <label class="field"><span>手机号 <i>*</i></span><input id="g-phone" maxlength="11" inputmode="numeric" placeholder="11 位手机号" autocomplete="tel"></label>
+          <div class="qty">
+            <span>购买数量</span>
+            <div class="stepper">
+              <button type="button" id="minus" aria-label="减少">−</button>
+              <output id="qty">1</output>
+              <button type="button" id="plus" aria-label="增加">+</button>
+            </div>
+          </div>
+          <div class="sum">
+            <div class="l" id="sumL"></div>
+            <div class="a"><small>¥</small><span id="sumA">0</span></div>
+          </div>
+          <div class="pays">
+            <button class="pay wx" data-m="wechat" aria-disabled="true"><span class="ic">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M9 4C5 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.3 2.5.3h.5a5 5 0 0 1-.2-1.4C9.3 11 12.4 8.6 16 8.6h.4C15.7 6 12.6 4 9 4zM16 9.8c-3.3 0-6 2.2-6 4.9s2.7 4.9 6 4.9c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.9 0-2.7-2.7-4.9-6-4.9z"/></svg></span>微信支付</button>
+            <button class="pay ali" data-m="alipay" aria-disabled="true"><span class="ic">支</span>支付宝</button>
+          </div>
+          <div class="pay-err" id="err-guest" role="alert"></div>
+          <p class="note">点付款后会生成你的订单号。付款时请在备注里填写订单号，主办方核对收款后，你的电子票就会生效。如需退票或有疑问，请联系主办方。</p>
+        </div></div></div>
+      </div>
+      <div class="idc" data-id="student">
+        <button type="button" class="tk" aria-expanded="false" aria-controls="pnl-student">
+          <span class="tkico"></span>
+          <span class="body"><div class="nm">本校学生</div><div class="en">STUDENT · 免费预约</div></span>
+          <span class="pr free">预约</span><span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="pnl" id="pnl-student"><div class="pnl-in"><div class="pnl-pad">
+          <div class="field"><span>学部 <i>*</i></span>
+            <div class="dept" id="s-dept" data-value="">
+              <div class="seg" id="s-top"><button type="button" data-top="国内部">国内部</button><button type="button" data-top="融合部">融合部</button></div>
+              <div class="seg sub" id="s-sub" hidden></div>
+            </div>
+          </div>
+          <label class="field"><span>班级 <i>*</i></span><input id="s-cls" maxlength="20" placeholder="请填写班级" autocomplete="off"></label>
+          <label class="field"><span>姓名 <i>*</i></span><input id="s-name" maxlength="20" placeholder="请填写真实姓名" autocomplete="name"></label>
+          <button class="go-free" data-free="student" aria-disabled="true">免费预约</button>
+          <div class="pay-err" id="err-student" role="alert"></div>
+          <p class="note">提交后立即出票。每人限预约 1 张，入场时需核对学校发放的实体票。</p>
+        </div></div></div>
+      </div>
+      <div class="idc" data-id="teacher">
+        <button type="button" class="tk" aria-expanded="false" aria-controls="pnl-teacher">
+          <span class="tkico"></span>
+          <span class="body"><div class="nm">本校老师</div><div class="en">TEACHER · 免费预约</div></span>
+          <span class="pr free">预约</span><span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="pnl" id="pnl-teacher"><div class="pnl-in"><div class="pnl-pad">
+          <div class="field"><span>学部 <i>*</i></span>
+            <div class="dept" id="t-dept" data-value="">
+              <div class="seg" id="t-top"><button type="button" data-top="国内部">国内部</button><button type="button" data-top="融合部">融合部</button></div>
+            </div>
+          </div>
+          <label class="field"><span>姓名 <i>*</i></span><input id="t-name" maxlength="20" placeholder="请填写真实姓名" autocomplete="name"></label>
+          <button class="go-free" data-free="teacher" aria-disabled="true">免费预约</button>
+          <div class="pay-err" id="err-teacher" role="alert"></div>
+          <p class="note">提交后立即出票。每人限预约 1 张，入场时需核对学校发放的实体票。</p>
+        </div></div></div>
       </div>
     </div>
-  </section>
-
-  <section class="sec">
-    <div class="eyebrow">ATTENDEE</div>
-    <h2>购票人信息</h2>
-    <label class="field"><span>姓名</span><input id="name" maxlength="20" placeholder="入场核验使用，请填写真实姓名" autocomplete="name"></label>
-    <label class="field"><span>手机号</span><input id="phone" maxlength="11" inputmode="numeric" placeholder="11 位手机号" autocomplete="tel"></label>
-    <div class="err" id="err"></div>
-  </section>
-
-  <section class="sec">
-    <div class="sum">
-      <div><div class="l" id="sumL">请选择票种</div></div>
-      <div class="a"><small>¥</small><span id="sumA">0</span></div>
+    <div class="card mine" id="mine" hidden>
+      <div class="mine-h">我的订单 · 在这台设备上</div>
+      <div id="mineList"></div>
     </div>
-    <div class="pays">
-      <button class="pay wx" data-m="wechat" aria-disabled="true"><span class="ic">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M9 4C5 4 2 6.6 2 9.8c0 1.8 1 3.4 2.6 4.5L4 16.5l2.5-1.3c.8.2 1.6.3 2.5.3h.5a5 5 0 0 1-.2-1.4C9.3 11 12.4 8.6 16 8.6h.4C15.7 6 12.6 4 9 4zM16 9.8c-3.3 0-6 2.2-6 4.9s2.7 4.9 6 4.9c.7 0 1.4-.1 2-.3l2 1.1-.5-1.8c1.5-.9 2.5-2.3 2.5-3.9 0-2.7-2.7-4.9-6-4.9z"/></svg></span>微信支付</button>
-      <button class="pay ali" data-m="alipay" aria-disabled="true"><span class="ic">支</span>支付宝</button>
-    </div>
-    <p class="note">付款后请保留付款截图。主办方会按付款备注核对名单，入场时报姓名即可。如需退票或有疑问，请联系主办方。</p>
   </section>
 </main>
 
@@ -242,26 +598,11 @@ footer .lic{font-family:var(--serif);font-style:italic;font-size:13px;color:var(
 <div class="mask" id="mask" role="dialog" aria-modal="true" aria-labelledby="sTitle"><div class="sheet" id="sheet"></div></div>
 <div class="toast" id="toast" role="status"></div>
 
+<script src="config.js"></script>
+<script src="cloudbase.min.js" defer></script>
 <script>
-/* ================== 配置区：只需要改这里 ================== */
-const CONFIG = {
-  dateEn: 'Nov. 2, 2026',
-  dateZh: '2026年11月2日（周一）',
-  time: '16:00–18:00',
-  placeEn: 'Science and Technology Building, 6F',
-  placeZh: '上海市民办尚德实验学校 · 科技楼 6 层',
-  contact: '',              // 主办方联系方式（微信号/电话），留空不显示
-  maxPerOrder: 5,
-  tickets: [                // ⚠️ 价格为占位，请改成实际票价
-    { id: 'adult',   name: '成人票', en: 'GENERAL',  price: 88 },
-    { id: 'student', name: '学生票', en: 'STUDENT',  price: 38 },
-    { id: 'teacher', name: '教师票', en: 'TEACHER',  price: 58 },
-  ],
-  // 收款码图片：把图片放在同一个文件夹里，文件名对应即可
-  wechatQr: 'wechat-qr.jpg',
-  alipayQr: 'alipay-qr.jpg',
-};
-/* ======================================================== */
+// 活动信息、票价都在 config.js 里改
+const CONFIG = { ...window.TEDX_CONFIG.event, tickets: window.TEDX_CONFIG.tickets, maxPerOrder: window.TEDX_CONFIG.maxPerOrder || 5 };
 
 const $ = (id) => document.getElementById(id);
 const UA = navigator.userAgent;
@@ -269,112 +610,219 @@ const inWeChat = /MicroMessenger/i.test(UA);
 const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(UA);
 const S = { id: null, qty: 1 };
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-const ticket = () => CONFIG.tickets.find((t) => t.id === S.id);
-const total = () => (ticket() ? Math.round(ticket().price * S.qty * 100) / 100 : 0);
-const phoneOk = () => /^1\d{10}$/.test($('phone').value.trim());
+const TIME = CONFIG.time || '时间待定';
+const PLACE_ZH = CONFIG.placeZh || '地点待定';
+const PLACE_EN = CONFIG.placeEn || 'Venue TBA';
+const TICKET_ICON = `<svg viewBox="3 3 42 42" aria-hidden="true"><g transform="rotate(-14 24 24) translate(6 12.5)"><path d="M0,0 H21.8 A3.2,3.2 0 0 0 28.2,0 H36 V23 H28.2 A3.2,3.2 0 0 0 21.8,23 H0 Z" fill="url(#tkGrad)"/><path d="M25,5.5 V17.5" stroke="#fff" stroke-opacity=".75" stroke-width="1.5" stroke-dasharray="2 2"/><text x="4.5" y="10.5" font-family="Bebas Neue,Impact,sans-serif" font-size="6.6" fill="#fff" letter-spacing=".4">ADMIT</text><text x="4.5" y="18" font-family="Bebas Neue,Impact,sans-serif" font-size="6.6" fill="#fff" fill-opacity=".8" letter-spacing=".4">ONE</text><path d="M30.5,9 l1.2,2.4 2.6.4-1.9,1.8.5,2.6-2.4-1.3-2.4,1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff"/></g></svg>`;
 function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 1800); }
+const ticket = () => CONFIG.tickets.find((t) => t.id === S.id);
+const GUEST = CONFIG.tickets.find((t) => t.id === 'guest');
+const total = () => Math.round(GUEST.price * S.qty * 100) / 100;
+// 每种身份要填的内容：[输入框 id, 提示文字]
+const FIELDS = { guest: [['g-name', '姓名'], ['g-phone', '手机号']], student: [['s-dept', '学部'], ['s-cls', '班级'], ['s-name', '姓名']], teacher: [['t-dept', '学部'], ['t-name', '姓名']] };
+const ALL_INPUTS = Object.values(FIELDS).flat().map((f) => f[0]);
+const v = (id) => { const e = $(id); return String(e.dataset.value ?? e.value ?? '').trim(); };
+// 学部：先选国内部 / 融合部，再选具体学段
+const DEPTS = { '国内部': ['小学', '初中', '高中'], '融合部': ['PYP', 'MYP', 'IBDP', 'A-Level', 'NB'] };
+const D = { top: '', sub: '' };
+function renderDept() {
+  document.querySelectorAll('#s-top button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.top === D.top)));
+  $('s-sub').hidden = !D.top;
+  $('s-sub').innerHTML = D.top ? DEPTS[D.top].map((x) => `<button type="button" data-sub="${x}" aria-pressed="${x === D.sub}">${x}</button>`).join('') : '';
+  $('s-dept').dataset.value = D.top && D.sub ? `${D.top} ${D.sub}` : '';
+}
 
 function render() {
-  $('tkList').innerHTML = CONFIG.tickets.map((t) => `
-    <button type="button" class="tk" role="radio" aria-checked="${t.id === S.id}" data-id="${t.id}">
-      <span class="groove" aria-hidden="true"></span>
-      <span class="body"><div class="nm">${esc(t.name)}</div><div class="en">${esc(t.en)}</div></span>
-      <span class="pr"><small>¥</small>${t.price}</span>
-    </button>`).join('');
+  document.querySelectorAll('.idc').forEach((c) => {
+    const open = c.dataset.id === S.id;
+    c.classList.toggle('open', open);
+    c.querySelector('.tk').setAttribute('aria-expanded', String(open));
+  });
+  $('prGuest').innerHTML = `<small>¥</small>${GUEST.price}`;
   $('qty').textContent = S.qty;
   $('minus').disabled = S.qty <= 1;
   $('plus').disabled = S.qty >= CONFIG.maxPerOrder;
-  $('sumL').textContent = ticket() ? `${ticket().name} × ${S.qty}` : '请选择票种';
+  $('sumL').textContent = `校外票 × ${S.qty}`;
   $('sumA').textContent = total();
-  const ready = ticket() && $('name').value.trim() && phoneOk();
-  document.querySelectorAll('.pay').forEach((b) => b.setAttribute('aria-disabled', String(!ready)));
+  const ready = !!S.id && !missing().length;
+  document.querySelectorAll('.pay').forEach((b) => b.setAttribute('aria-disabled', String(!(ready && S.id === 'guest'))));
+  document.querySelectorAll('.go-free').forEach((b) => b.setAttribute('aria-disabled', String(!(ready && S.id === b.dataset.free))));
 }
 
-function memo() { return `${$('name').value.trim()} ${$('phone').value.trim().slice(-4)} ${ticket().name}×${S.qty}`; }
+// 还差哪些没填：[元素 id, 提示文字]
+function missing() {
+  if (!S.id) return [['idList', '选择身份']];
+  const m = [];
+  for (const [id, label] of FIELDS[S.id]) {
+    if (!v(id)) m.push([id, label]);
+    else if (id === 'g-phone' && !/^1\d{10}$/.test(v(id))) m.push([id, '正确的 11 位手机号']);
+  }
+  return m;
+}
+const errBox = () => $('err-' + (S.id || 'guest'));
+function flagMissing(m) {
+  ['idList', ...ALL_INPUTS].forEach((id) => $(id).classList.toggle('bad', m.some((x) => x[0] === id)));
+  document.querySelectorAll('.pay-err').forEach((e) => { e.textContent = ''; });
+  if (S.id) errBox().textContent = m.length ? '还差：' + m.map((x) => x[1]).join('、') : '';
+}
+// 已经提示过的情况下，边填边更新提示和红框
+function refreshFlags() { if (S.id && errBox().textContent.startsWith('还差')) flagMissing(missing()); }
 
+function pointAt(m) {
+  flagMissing(m);
+  const first = $(m[0][0]);
+  first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  first.classList.remove('shake'); void first.offsetWidth; first.classList.add('shake');
+  if (first.tagName === 'INPUT') setTimeout(() => first.focus({ preventScroll: true }), 400);
+}
+
+let busy = false;
+async function submit(btn, data, method) {
+  if (busy) return;
+  const m = missing();
+  if (m.length) return pointAt(m);
+  flagMissing([]);
+  // 先在服务器上建订单（拿到订单号），再去付款页 / 出票页
+  busy = true;
+  const label = btn.innerHTML;
+  btn.innerHTML = `<span class="spin" aria-hidden="true"></span>${method ? '正在下单…' : '正在预约…'}`;
+  const btns = document.querySelectorAll('.pay,.go-free');
+  btns.forEach((b) => b.classList.add('wait'));
+  try {
+    const { order } = await window.tedxApi({ action: 'create', ticketId: S.id, ...data });
+    window.tedxMyOrders.add(order);
+    location.href = `pay.html?${new URLSearchParams({ o: order.id, k: order.token, ...(method ? { m: method } : {}) })}`;
+  } catch (e) {
+    errBox().textContent = e.message || '提交失败，请再试一次';
+    btn.innerHTML = label;
+    btns.forEach((b) => b.classList.remove('wait'));
+    busy = false;
+  }
+}
 function openPay(method) {
-  if (!ticket()) { $('err').textContent = '请先选择票种'; document.getElementById('tickets').scrollIntoView({ behavior: 'smooth' }); return; }
-  if (!$('name').value.trim()) { $('err').textContent = '请填写姓名'; $('name').focus(); return; }
-  if (!phoneOk()) { $('err').textContent = '请填写正确的 11 位手机号'; $('phone').focus(); return; }
-  $('err').textContent = '';
-  const wx = method === 'wechat';
-  const color = wx ? 'var(--wx)' : 'var(--ali)';
-  const app = wx ? '微信' : '支付宝';
-  const src = wx ? CONFIG.wechatQr : CONFIG.alipayQr;
-  const scanTip = wx
-    ? (inWeChat ? '长按下方二维码保存图片，再打开微信「扫一扫」→ 右上角「相册」选择这张图片' : isMobile ? '截图保存二维码，打开微信「扫一扫」→ 右上角「相册」选择截图' : '打开手机微信「扫一扫」，扫描上方二维码')
-    : (inWeChat ? '微信内无法直接打开支付宝：请截图保存二维码，打开支付宝「扫一扫」→「相册」选择截图' : isMobile ? '截图保存二维码，打开支付宝「扫一扫」→ 右上角「相册」选择截图' : '打开手机支付宝「扫一扫」，扫描上方二维码');
-  $('sheet').innerHTML = `
-    <button class="close" id="xBtn" aria-label="关闭">×</button>
-    <span class="s-tag" id="sTitle" style="background:${color}">${app}付款</span>
-    <div class="s-amt"><small>¥</small>${total()}</div>
-    <div class="s-sub">${esc(ticket().name)} × ${S.qty} · TEDxSSES Youth</div>
-    <div class="qrbox" style="--qrc:${color}">
-      <img src="${esc(src)}" alt="${app}收款码" id="qrImg">
-      <div class="qr-missing" id="qrMiss" hidden>收款码图片未找到<br>请把 ${esc(src)} 放到网页同一文件夹</div>
-    </div>
-    <ol class="steps">
-      <li><span>${scanTip}</span></li>
-      <li><span>输入金额 <b style="color:#fff">¥${total()}</b></span></li>
-      <li><span style="flex:1;min-width:0">付款时点「添加备注」，填写：
-        <div class="memo"><code id="memoTxt">${esc(memo())}</code><button class="copy" id="copyBtn">复制</button></div></span></li>
-      <li><span>付款完成后，点击下方按钮并保存凭证截图</span></li>
-    </ol>
-    <button class="done" id="doneBtn">我已完成付款</button>
-    <button class="ghost-btn" id="backBtn">返回修改</button>`;
-  $('qrImg').onerror = () => { $('qrImg').hidden = true; $('qrMiss').hidden = false; };
-  $('xBtn').onclick = $('backBtn').onclick = close;
-  $('copyBtn').onclick = () => {
-    const txt = $('memoTxt').textContent;
-    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject())
-      .then(() => toast('备注已复制'))
-      .catch(() => { const r = document.createRange(); r.selectNodeContents($('memoTxt')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('请长按复制备注'); });
-  };
-  $('doneBtn').onclick = () => showReceipt(app);
-  $('mask').classList.add('show');
+  const btn = document.querySelector(`.pay[data-m="${method}"]`);
+  submit(btn, { qty: S.qty, name: v('g-name'), phone: v('g-phone'), method, expectAmount: total() }, method);
+}
+function reserve(kind) {
+  const btn = document.querySelector(`.go-free[data-free="${kind}"]`);
+  submit(btn, kind === 'student' ? { name: v('s-name'), dept: v('s-dept'), cls: v('s-cls') } : { name: v('t-name'), dept: v('t-dept') });
 }
 
-function showReceipt(app) {
-  const now = new Date();
-  $('sheet').innerHTML = `
-    <button class="close" id="xBtn" aria-label="关闭">×</button>
-    <div class="ok">✓</div>
-    <div style="font-weight:700;font-size:18px" id="sTitle">已提交，请截图保存本页</div>
-    <div class="s-sub" style="margin-top:4px">主办方将根据${app}付款备注核对，入场时报姓名即可</div>
-    <div class="receipt">
-      <div><span>活动</span><span>TEDxSSES Youth · RIPPLE</span></div>
-      <div><span>时间</span><span>${esc(CONFIG.dateZh)} ${esc(CONFIG.time)}</span></div>
-      <div><span>地点</span><span style="text-align:right">${esc(CONFIG.placeZh)}</span></div>
-      <div><span>票种</span><span>${esc(ticket().name)} × ${S.qty}</span></div>
-      <div><span>金额</span><span>¥${total()}（${app}）</span></div>
-      <div><span>购票人</span><span>${esc($('name').value.trim())} · ${esc($('phone').value.trim())}</span></div>
-      <div><span>提交时间</span><span>${now.toLocaleString('zh-CN', { hour12: false })}</span></div>
-    </div>
-    ${CONFIG.contact ? `<div class="s-sub" style="margin-top:12px">如有疑问请联系：${esc(CONFIG.contact)}</div>` : ''}
-    <button class="done" id="okBtn">完成</button>`;
-  $('xBtn').onclick = $('okBtn').onclick = close;
+// 这台设备上下过的订单
+function renderMine() {
+  const l = window.tedxMyOrders.list();
+  $('mine').hidden = !l.length;
+  $('mineList').innerHTML = l.map((o) => `<a href="pay.html?${new URLSearchParams({ o: o.id, k: o.token })}"><b>${esc(o.code)}</b><span>${esc(o.ticket)}</span><i>查看 →</i></a>`).join('');
 }
+
 function close() { $('mask').classList.remove('show'); }
 
 // ---------- 初始化 ----------
-$('hTime').textContent = CONFIG.time;
+$('hTime').textContent = CONFIG.time || 'TIME TBA';
 $('hDate').textContent = CONFIG.dateEn;
-$('hPlace').textContent = CONFIG.placeEn;
-$('hZh').textContent = `${CONFIG.dateZh} · ${CONFIG.placeZh}`;
+$('hPlace').textContent = PLACE_EN;
+$('hZh').textContent = `${CONFIG.dateZh} · ${PLACE_ZH}`;
 $('iDate').textContent = CONFIG.dateZh;
-$('iTime').textContent = CONFIG.time;
-$('iPlace').textContent = CONFIG.placeZh;
+$('iTime').textContent = TIME;
+$('iPlace').textContent = PLACE_ZH;
 if (CONFIG.contact) { $('iContactBox').hidden = false; $('iContact').textContent = CONFIG.contact; }
-$('foot').textContent = `© ${new Date().getFullYear()} TEDxSSES Youth · ${CONFIG.placeZh}`;
+$('foot').textContent = `© ${new Date().getFullYear()} TEDxSSES Youth${CONFIG.placeZh ? ' · ' + CONFIG.placeZh : ''}`;
 
-$('tkList').onclick = (e) => { const b = e.target.closest('[data-id]'); if (!b) return; S.id = b.dataset.id; $('err').textContent = ''; render(); };
-$('minus').onclick = () => { S.qty = Math.max(1, S.qty - 1); render(); };
-$('plus').onclick = () => { S.qty = Math.min(CONFIG.maxPerOrder, S.qty + 1); render(); };
-['name', 'phone'].forEach((id) => $(id).addEventListener('input', () => { $('err').textContent = ''; render(); }));
+document.querySelectorAll('.idc .tkico').forEach((e) => { e.innerHTML = TICKET_ICON; });
+// 点身份卡：从点击位置荡开一圈涟漪
+document.querySelectorAll('.idc .tk').forEach((b) => b.addEventListener('pointerdown', (e) => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const r = b.getBoundingClientRect(), d = document.createElement('span');
+  d.className = 'rip'; d.style.left = (e.clientX - r.left) + 'px'; d.style.top = (e.clientY - r.top) + 'px';
+  b.appendChild(d); setTimeout(() => d.remove(), 800);
+}));
+// 身份卡滚到眼前时依次浮现
+(function () {
+  const cards = document.querySelectorAll('.idc');
+  if (!('IntersectionObserver' in window)) return cards.forEach((c) => c.classList.add('in'));
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  cards.forEach((c) => io.observe(c));
+  setTimeout(() => cards.forEach((c) => c.classList.add('in')), 4000); // 兜底：无论如何都显示出来
+})();
+document.querySelectorAll('.idc .tk').forEach((b) => b.onclick = () => {
+  const id = b.parentElement.dataset.id;
+  S.id = S.id === id ? null : id;
+  flagMissing([]);
+  render();
+  if (S.id) setTimeout(() => b.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+});
+const bump = () => { const e = $('sumA'); e.classList.remove('bump'); void e.offsetWidth; e.classList.add('bump'); };
+$('minus').onclick = () => { S.qty = Math.max(1, S.qty - 1); render(); bump(); };
+$('plus').onclick = () => { S.qty = Math.min(CONFIG.maxPerOrder, S.qty + 1); render(); bump(); };
+ALL_INPUTS.forEach((id) => $(id).addEventListener('input', () => { render(); refreshFlags(); }));
+$('s-top').onclick = (e) => { const b = e.target.closest('[data-top]'); if (!b) return; if (D.top !== b.dataset.top) { D.top = b.dataset.top; D.sub = ''; } renderDept(); render(); refreshFlags(); };
+$('s-sub').onclick = (e) => { const b = e.target.closest('[data-sub]'); if (!b) return; D.sub = b.dataset.sub; renderDept(); render(); refreshFlags(); };
+renderDept();
+// 老师：只选国内部 / 融合部
+$('t-top').onclick = (e) => {
+  const b = e.target.closest('[data-top]'); if (!b) return;
+  $('t-dept').dataset.value = b.dataset.top;
+  document.querySelectorAll('#t-top button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  render(); refreshFlags();
+};
 document.querySelectorAll('.pay').forEach((b) => b.onclick = () => openPay(b.dataset.m));
+document.querySelectorAll('.go-free').forEach((b) => b.onclick = () => reserve(b.dataset.free));
 $('mask').onclick = (e) => { if (e.target === $('mask')) close(); };
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 render();
+renderMine();
+addEventListener('pageshow', (e) => { if (e.persisted) { busy = false; document.querySelectorAll('.pay,.go-free').forEach((b) => b.classList.remove('wait')); renderMine(); } });
+
+// ---------- 封面火星粒子：从唱片边缘飘起的红橙光点 ----------
+(function () {
+  const cv = $('sparks');
+  if (!cv || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx = cv.getContext('2d');
+  const hero = cv.parentElement;
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  // 预先画好一个发光圆点，之后直接贴图，比实时阴影省电
+  const dot = document.createElement('canvas'); dot.width = dot.height = 64;
+  const g = dot.getContext('2d'), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(.18, 'rgba(255,200,170,.9)');
+  rg.addColorStop(.45, 'rgba(255,70,45,.35)'); rg.addColorStop(1, 'rgba(255,40,30,0)');
+  g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+  let W = 0, H = 0, ps = [], on = true, raf = 0;
+  function size() {
+    W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  function spawn(p, init) {
+    // 大部分从唱片周围出生，少量是大而虚的光斑
+    const vs = Math.min(W * 1.18, 620), cx = Math.max(-W * .46, -250) + vs / 2, cy = 120 + vs / 2;
+    const a = Math.random() * Math.PI * 2, r = vs / 2 * (.9 + Math.random() * .35);
+    p.big = Math.random() < .08;
+    p.x = p.big ? Math.random() * W : cx + Math.cos(a) * r;
+    p.y = init ? Math.random() * H : (p.big ? H + 40 : cy + Math.sin(a) * r);
+    p.vx = (Math.random() - .5) * .35; p.vy = -(.25 + Math.random() * .7);
+    p.s = p.big ? 30 + Math.random() * 50 : 3 + Math.random() * 9;
+    p.life = 0; p.max = 260 + Math.random() * 420; p.tw = Math.random() * 6.28;
+    return p;
+  }
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of ps) {
+      p.life++; p.x += p.vx + Math.sin((p.life + p.tw * 40) / 60) * .2; p.y += p.vy;
+      const k = p.life / p.max, fade = Math.min(1, k * 6) * (1 - k);
+      const a = (p.big ? .12 : .55 + .45 * Math.sin(p.life / 7 + p.tw)) * fade;
+      if (a > 0) { ctx.globalAlpha = a; ctx.drawImage(dot, p.x - p.s / 2, p.y - p.s / 2, p.s, p.s); }
+      if (p.life >= p.max || p.y < -60) spawn(p, false);
+    }
+    ctx.globalAlpha = 1;
+    raf = on ? requestAnimationFrame(tick) : 0;
+  }
+  size();
+  const n = W < 500 ? 46 : 70;
+  for (let i = 0; i < n; i++) ps.push(spawn({}, true));
+  addEventListener('resize', size);
+  // 封面滚出屏幕就暂停，省电
+  new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on && !raf) raf = requestAnimationFrame(tick); }).observe(hero);
+})();
 </script>
 </body>
 </html>
