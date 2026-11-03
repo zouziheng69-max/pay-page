@@ -4,19 +4,49 @@
 
 ## 界面预览
 
-| 首页 | 校外人士购票 | 本校学生预约 |
+截图来自网站的预览模式，里面的姓名、手机号、订单号都是示例数据。
+
+### 出票动画
+
+付款被确认后，电子票从出票口弹出，按住票根往下拉可以撕开，盖上「ISSUED」印章。
+
+<p align="center"><img src="screenshots/ticket-animation.gif" width="280"></p>
+
+### 电脑端
+
+<img src="screenshots/08-desktop-home.jpg" width="820">
+
+<img src="screenshots/09-desktop-tickets.jpg" width="820">
+
+### 首页（手机端）
+
+| 封面 | 活动主题 | 演讲嘉宾海报 | 活动信息与入场时间 |
+| :---: | :---: | :---: | :---: |
+| <img src="screenshots/01-home.png" width="200"> | <img src="screenshots/10-theme.png" width="200"> | <img src="screenshots/11-posters.jpg" width="200"> | <img src="screenshots/12-info.png" width="200"> |
+
+### 三种身份
+
+| 校外人士 · 68 元购票 | 本校学生 · 免费预约 | 本校老师 · 免费预约 |
 | :---: | :---: | :---: |
-| <img src="screenshots/01-home.png" width="260"> | <img src="screenshots/02-guest.png" width="260"> | <img src="screenshots/03-student.png" width="260"> |
+| <img src="screenshots/02-guest.png" width="240"> | <img src="screenshots/03-student.png" width="240"> | <img src="screenshots/13-teacher.png" width="240"> |
 
-| 付款页（68 元） | 电子票（校外） | 电子票（校内免费预约） |
+### 付款与出票
+
+| 付款页（订单号 + 备注核对） | 已提交，等待主办方确认 | 撕开票根后的电子票 |
 | :---: | :---: | :---: |
-| <img src="screenshots/04-pay.png" width="260"> | <img src="screenshots/05-ticket.png" width="260"> | <img src="screenshots/06-free-done.png" width="260"> |
+| <img src="screenshots/04-pay.png" width="240"> | <img src="screenshots/14-waiting.png" width="240"> | <img src="screenshots/16-ticket-torn.png" width="240"> |
 
-| 管理页 |
-| :---: |
-| <img src="screenshots/07-admin.png" width="260"> |
+| 电子票（校外） | 电子票（校内免费预约） |
+| :---: | :---: |
+| <img src="screenshots/05-ticket.png" width="240"> | <img src="screenshots/06-free-done.png" width="240"> |
 
-截图来自预览模式，里面的姓名、手机号、订单号都是示例数据。
+### 管理页
+
+主办方在这里核对收款、确认订单、入场核验、作废、导出表格和清空记录。
+
+| 电脑端：全部订单 | 手机端：待确认订单 |
+| :---: | :---: |
+| <img src="screenshots/15-admin-all.png" width="460"> | <img src="screenshots/07-admin.png" width="240"> |
 
 ## 目录
 
